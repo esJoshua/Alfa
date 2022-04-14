@@ -7,7 +7,7 @@ import {
   createUserWithEmailAndPassword,
   signOut,
 } from "firebase/auth";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, doc, updateDoc } from "firebase/firestore";
 import { db } from "@/helpers/firebase.js";
 
 //onAuthStateChanged,
@@ -17,7 +17,7 @@ export default new Vuex.Store({
   state: {
     user: {},
     loggedIn: false,
-    cursos: {},
+    cursos: [],
   },
   mutations: {
     SET_LOG(state, payload) {
@@ -125,8 +125,8 @@ export default new Vuex.Store({
       }
     },
 
-    /* const auth = getAuth();
-onAuthStateChanged(auth, (user) => {
+    /*  const auth = getAuth();
+   onAuthStateChanged(auth, (user) => {
   if (user) {
     // User is signed in, see docs for a list of available properties
     // https://firebase.google.com/docs/reference/js/firebase.User
@@ -135,7 +135,7 @@ onAuthStateChanged(auth, (user) => {
   } else {
     // User is signed out
     // ...
-  } */
+  },  */
     async getCollectionCursos({ commit }) {
       try {
         const request = await getDocs(collection(db, "cursos"));
@@ -146,8 +146,20 @@ onAuthStateChanged(auth, (user) => {
           };
           return obj;
         });
-        console.log(data);
+        //console.log(data);
         commit("SET_DATA_CURSOS", data);
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    async updateCurso({ dispatch }, payload) {
+      //console.log(payload);
+      try {
+        const docRef = doc(db, "cursos", payload.idCurso);
+        await updateDoc(docRef, payload);
+        console.log("Ha sido Actualizado el curso con ID: ", docRef.id);
+        dispatch("getCollectionCursos");
+        alert("Ha sido Actualizado el curso con codigo: " + payload.codigo);
       } catch (error) {
         console.error(error);
       }

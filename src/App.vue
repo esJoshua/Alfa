@@ -1,6 +1,6 @@
 <template>
-  <div id="app">
-    <nav>
+  <div>
+    <nav id="app">
       <!-- <router-link to="/">Home</router-link> |
       <router-link to="/admin">admin</router-link> |
       <router-link to="/edicion/:id">edicion</router-link> |
@@ -10,7 +10,6 @@
       <template v-if="loggedIn">
         <router-link to="/">Home</router-link> |
         <router-link to="/admin">admin</router-link> |
-        <router-link to="/edicion/:id">edicion</router-link> |
         <button @click="logout" class="btn btn-link">Cerrar Sesión</button>
       </template>
       <template v-else>

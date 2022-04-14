@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="mb-3">Lista de Cursos</h1>
+    <h1 class="mb-3 text-center">Lista de Cursos</h1>
     <Card :dataCursosCard="cursos" />
   </div>
 </template>

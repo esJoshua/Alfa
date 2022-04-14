@@ -4,7 +4,7 @@
     <h1>{{ user.password }}</h1>
     <div class="row">
       <div class="col-12">
-        <h1>Administración</h1>
+        <h1 class="text-center">Administración</h1>
       </div>
     </div>
     <div class="row">
@@ -13,7 +13,7 @@
         <Tabla :dataCursosTabla="cursos" />
       </div>
     </div>
-    <div :style="'text-align: left'">
+    <div>
       <p
         class="borderp rounded p-2"
         :style="'borderColor: purple; color: purple'"
