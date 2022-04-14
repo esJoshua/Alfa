@@ -19,6 +19,7 @@
       <h1>{{ totalInscritos }}</h1>
       <h1>{{ cuposRestantes }}</h1>
       <h1>{{ cursosTerminados }}</h1>
+      <h1>{{ cursosActivos }}</h1>
     </div>
   </div>
 </template>
@@ -36,6 +37,7 @@ export default {
       "totalInscritos",
       "cuposRestantes",
       "cursosTerminados",
+      "cursosActivos",
     ]),
   },
   components: {
