@@ -66,7 +66,7 @@ export default new Vuex.Store({
     cursosActivos(state) {
       return state.cursos.reduce((accumulator, item) => {
         accumulator = accumulator + !item.estado;
-        console.log(+item.estado);
+        console.log(+!item.estado);
         return accumulator;
       }, 0);
     },

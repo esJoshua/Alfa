@@ -19,11 +19,20 @@
           <td>{{ curso.cupos }}</td>
           <td>{{ curso.inscritos }}</td>
           <td>{{ curso.duracion }}</td>
-          <td class="badge rounded-pill bg-success">{{ curso.costo }}</td>
           <td>
-            {{ curso.estado ? "Si" : "No" }}
+            <span class="badge rounded-pill bg-success p-2"
+              >${{ curso.costo }}</span
+            >
           </td>
-          <td class="badge rounded-pill bg-success">Fecha</td>
+          <td>
+            <span
+              class="p-2 badge rounded-pill"
+              :class="[curso.estado ? 'bg-primary' : 'bg-secondary']"
+            >
+              {{ curso.estado ? "Si" : "No" }}</span
+            >
+          </td>
+          <td><span class="badge rounded-pill bg-success p-2">Fecha</span></td>
           <td><span>✏️</span><span>🗑️</span></td>
         </tr>
       </tbody>

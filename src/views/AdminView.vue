@@ -13,13 +13,38 @@
         <Tabla :dataCursosTabla="cursos" />
       </div>
     </div>
-    <div class="row">
-      <h1>{{ totalCursos }}</h1>
-      <h1>{{ totalCupos }}</h1>
-      <h1>{{ totalInscritos }}</h1>
-      <h1>{{ cuposRestantes }}</h1>
-      <h1>{{ cursosTerminados }}</h1>
-      <h1>{{ cursosActivos }}</h1>
+    <div :style="'text-align: left'">
+      <p
+        class="borderp rounded p-2"
+        :style="'borderColor: purple; color: purple'"
+      >
+        Cantidad total de alumnos permitidos:
+        {{ totalCupos }} alumnos
+      </p>
+      <p class="borderp rounded p-2" :style="'border-color: blue; color:blue'">
+        Cantidad total de alumnos inscritos: {{ totalInscritos }} alumnos
+      </p>
+      <p class="borderp rounded p-2" :style="'border-color: red; color:red'">
+        Cantidad total de cupos restantes: {{ cuposRestantes }} alumnos
+      </p>
+      <p
+        class="borderp rounded p-2"
+        :style="'border-color: rgb(243, 31, 148); color:rgb(243, 31, 148)'"
+      >
+        Cantidad total de curso terminados: {{ cursosTerminados }} cursos
+      </p>
+      <p
+        class="borderp rounded p-2"
+        :style="'border-color: brown; color:brown'"
+      >
+        Cantidad total de cursos activos: {{ cursosActivos }} cursos
+      </p>
+      <p
+        class="borderp rounded p-2"
+        :style="'border-color: orange; color:orange'"
+      >
+        Cantidad total de cursos: {{ totalCursos }} cursos
+      </p>
     </div>
   </div>
 </template>
@@ -46,4 +71,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.borderp {
+  border: 1px solid;
+}
+</style>
