@@ -1,18 +1,20 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+  <div>
+    <h1 class="mb-3">Lista de Cursos</h1>
+    <Card :dataCursosCard="cursos" />
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
-
+import { mapState } from "vuex";
+import Card from "@/components/CardComp.vue";
 export default {
   name: "HomeView",
+  computed: {
+    ...mapState(["user", "cursos"]),
+  },
   components: {
-    HelloWorld,
+    Card,
   },
 };
 </script>
