@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <Modal />
     <h1>{{ user.user }}</h1>
     <h1>{{ user.password }}</h1>
     <div class="row">
@@ -8,7 +9,9 @@
       </div>
     </div>
     <div class="row">
-      <button class="btn btn-primary mb-3 col-12">Agregar Curso</button>
+      <button v-b-modal.modal-add-curso class="btn btn-primary mb-3 col-12">
+        Agregar Curso
+      </button>
       <div class="col-12">
         <Tabla :dataCursosTabla="cursos" />
       </div>
@@ -52,6 +55,7 @@
 <script>
 import { mapState, mapGetters } from "vuex";
 import Tabla from "@/components/TablaComp.vue";
+import Modal from "@/components/ModalComp.vue";
 export default {
   name: "AdministracionView",
   computed: {
@@ -67,6 +71,7 @@ export default {
   },
   components: {
     Tabla,
+    Modal,
   },
 };
 </script>

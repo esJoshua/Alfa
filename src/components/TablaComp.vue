@@ -39,9 +39,8 @@
                 >✏️</RouterLink
               ></span
             >
-            <span>🗑️</span>
+            <span @click="deleteCursoBtn(curso)">🗑️</span>
           </td>
-          <td>{{ curso.codigo }}</td>
         </tr>
       </tbody>
     </table>
@@ -49,15 +48,48 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
 export default {
   name: "TablaComp",
+  data() {
+    return {
+      confirmacion: "",
+    };
+  },
   props: {
     dataCursosTabla: {
       type: Array,
       default: () => [],
     },
   },
+  methods: {
+    ...mapActions(["deleteCurso"]),
+    deleteCursoBtn(curso) {
+      console.log("click");
+      this.$bvModal
+        .msgBoxConfirm("Confirme la eliminación del curso.", {
+          title: "!! Advertencia !!",
+          okVariant: "danger",
+          okTitle: "Sí, borrar",
+          cancelTitle: "Cancelar",
+          footerClass: "p-2",
+          hideHeaderClose: false,
+          centered: true,
+          headerBgVariant: "warning",
+          bodyTextVariant: "danger",
+        })
+        .then((value) => {
+          this.confirmacion = value;
+          if (this.confirmacion === true) this.deleteCurso(curso);
+          console.log(this.confirmacion);
+        });
+    },
+  },
 };
 </script>
 
-<style></style>
+<style>
+.close {
+  display: none;
+}
+</style>

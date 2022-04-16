@@ -7,7 +7,14 @@ import {
   createUserWithEmailAndPassword,
   signOut,
 } from "firebase/auth";
-import { collection, getDocs, doc, updateDoc } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  doc,
+  updateDoc,
+  addDoc,
+  deleteDoc,
+} from "firebase/firestore";
 import { db } from "@/helpers/firebase.js";
 
 //onAuthStateChanged,
@@ -29,6 +36,22 @@ export default new Vuex.Store({
     SET_DATA_CURSOS(state, payload) {
       state.cursos = payload;
     },
+    UPDATE_CURSO(state, payload) {
+      const index = state.cursos.findIndex(
+        (item) => item.idCurso === payload.idCurso
+      );
+      state.cursos[index] = payload;
+    },
+    ADD_CURSO(state, payload) {
+      state.cursos.push(payload);
+    },
+    DELETE_CURSO(state, payload) {
+      const index = state.cursos.findIndex(
+        (item) => item.idCurso === payload.idCurso
+      );
+      console.log(index);
+      state.cursos.splice(index, 1);
+    },
   },
   getters: {
     totalCursos(state) {
@@ -37,36 +60,38 @@ export default new Vuex.Store({
     totalCupos(state) {
       let totalCupos = 0;
       state.cursos.forEach((cupo) => {
-        console.log(cupo.cupos);
+        //console.log(cupo.cupos);
         totalCupos = totalCupos + parseInt(cupo.cupos);
       });
       return totalCupos;
     },
     totalInscritos(state) {
-      return state.cursos.reduce((accumulator, curso, i) => {
+      return state.cursos.reduce((accumulator, curso) => {
+        //return state.cursos.reduce((accumulator, curso, i) => {
         accumulator = accumulator + curso.inscritos;
-        console.log("iteración", 1 + i++, accumulator);
+        //console.log("iteración", 1 + i++, accumulator);
         return accumulator;
       }, 0);
     },
     cuposRestantes(state) {
-      return state.cursos.reduce((accumulator, curso, i) => {
+      return state.cursos.reduce((accumulator, curso) => {
+        //return state.cursos.reduce((accumulator, curso, i) => {
         accumulator = accumulator + curso.cupos - curso.inscritos;
-        console.log("iteración", 1 + i++, curso.cupos - curso.inscritos);
+        //console.log("iteración", 1 + i++, curso.cupos - curso.inscritos);
         return accumulator;
       }, 0);
     },
     cursosTerminados(state) {
       return state.cursos.reduce((accumulator, item) => {
         accumulator = accumulator + item.estado;
-        console.log(+item.estado);
+        //console.log(+item.estado);
         return accumulator;
       }, 0);
     },
     cursosActivos(state) {
       return state.cursos.reduce((accumulator, item) => {
         accumulator = accumulator + !item.estado;
-        console.log(+!item.estado);
+        //console.log(+!item.estado);
         return accumulator;
       }, 0);
     },
@@ -146,20 +171,53 @@ export default new Vuex.Store({
           };
           return obj;
         });
-        //console.log(data);
+        console.log(data);
         commit("SET_DATA_CURSOS", data);
       } catch (error) {
         console.error(error);
       }
     },
-    async updateCurso({ dispatch }, payload) {
-      //console.log(payload);
+    async updateCurso({ commit }, payload) {
+      console.log(payload);
       try {
         const docRef = doc(db, "cursos", payload.idCurso);
         await updateDoc(docRef, payload);
         console.log("Ha sido Actualizado el curso con ID: ", docRef.id);
-        dispatch("getCollectionCursos");
+        commit("UPDATE_CURSO", payload);
         alert("Ha sido Actualizado el curso con codigo: " + payload.codigo);
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    async createCurso({ commit }, payload) {
+      try {
+        //commit("SET_CARGAR_SPINNER", true);
+        const docRef = await addDoc(collection(db, "cursos"), {
+          nombre: payload.nombre,
+          imagen: payload.URLimg,
+          cupos: payload.cupos,
+          inscritos: payload.inscritos,
+          duracion: payload.duracion,
+          costo: payload.costo,
+          codigo: payload.codigo,
+          descripcion: payload.descripcion,
+        });
+        console.log("Ha sido Creado el curso con ID: ", docRef.id);
+        commit("ADD_CURSO", payload);
+        //commit("SET_CARGAR_SPINNER", false);
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    async deleteCurso({ commit }, payload) {
+      console.log(payload);
+      try {
+        //commit("SET_CARGAR_SPINNER", true);
+        await deleteDoc(doc(db, "cursos", payload.idCurso));
+        console.log("Ha sido Eliminado el curso con ID: ", payload.idCurso);
+        commit("DELETE_CURSO", payload);
+        alert("Ha sido Eliminado el curso con codigo: " + payload.codigo);
+        //commit("SET_CARGAR_SPINNER", false);
       } catch (error) {
         console.error(error);
       }

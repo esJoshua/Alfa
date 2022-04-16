@@ -120,15 +120,17 @@
             ></b-form-input>
           </b-form-group>
           <div class="mt-3 text-center">
-            <b-button type="submit" variant="success">ACTUALIZAR</b-button>
-            <b-button class="m-3" type="reset" variant="danger"
+            <b-button type="submit" variant="outline-success"
+              >ACTUALIZAR</b-button
+            >
+            <b-button class="m-3" type="reset" variant="outline-danger"
               >LIMPIAR FORMULARIO</b-button
             >
-            <b-button class="m-3" type="button" variant="warning">
+            <b-button class="m-3" type="button" variant="outline-warning">
               LIMPIAR VALIDACIÓN</b-button
             >
-            <b-button to="/admin" type="button" variant="primary">
-              Regresar
+            <b-button to="/admin" type="button" variant="outline-primary">
+              REGRESAR
             </b-button>
           </div>
         </b-form>
@@ -153,7 +155,7 @@ export default {
         codigo: "",
         descripcion: "",
       },
-      cursoEditar: {
+      cursoEditado: {
         nombre: "",
         imagen: "",
         cupos: null,
@@ -179,19 +181,20 @@ export default {
       this.descripcion = "";
     },
     async onSubmit() {
-      this.cursoEditar.nombre = this.form.nombre || this.editCurso.nombre;
-      this.cursoEditar.imagen = this.form.URLimg || this.editCurso.imagen;
-      this.cursoEditar.cupos = this.form.cupos || this.editCurso.cupos;
-      this.cursoEditar.inscritos =
+      this.cursoEditado.nombre = this.form.nombre || this.editCurso.nombre;
+      this.cursoEditado.imagen = this.form.URLimg || this.editCurso.imagen;
+      this.cursoEditado.cupos = this.form.cupos || this.editCurso.cupos;
+      this.cursoEditado.inscritos =
         this.form.inscritos || this.editCurso.inscritos;
-      this.cursoEditar.duracion = this.form.duracion || this.editCurso.duracion;
-      this.cursoEditar.costo = this.form.costo || this.editCurso.costo;
-      this.cursoEditar.codigo = this.form.codigo || this.editCurso.codigo;
-      this.cursoEditar.descripcion =
+      this.cursoEditado.duracion =
+        this.form.duracion || this.editCurso.duracion;
+      this.cursoEditado.costo = this.form.costo || this.editCurso.costo;
+      this.cursoEditado.codigo = this.form.codigo || this.editCurso.codigo;
+      this.cursoEditado.descripcion =
         this.form.descripcion || this.editCurso.descripcion;
-      this.cursoEditar.idCurso = this.editCurso.idCurso;
-      //console.log(this.cursoEditar);
-      await this.updateCurso(this.cursoEditar);
+      this.cursoEditado.idCurso = this.editCurso.idCurso;
+      //console.log(this.cursoEditado);
+      await this.updateCurso(this.cursoEditado);
       this.$router.push("/");
     },
   },
