@@ -195,7 +195,7 @@ export default {
       this.cursoEditado.idCurso = this.editCurso.idCurso;
       //console.log(this.cursoEditado);
       await this.updateCurso(this.cursoEditado);
-      this.$router.push("/");
+      this.$router.push("/admin");
     },
   },
   computed: {

@@ -7,7 +7,7 @@
       </div>
     </div>
     <div class="row">
-      <button v-b-modal.modal-add-curso class="btn btn-primary mb-3 col-12">
+      <button v-b-modal.modal-add-curso class="btn btn-primary mt-3 col-12">
         Agregar Curso
       </button>
       <template v-if="loadSpinner">
@@ -20,11 +20,11 @@
           <div>Cargando contenido...</div>
         </div>
       </template>
-      <div class="col-12">
+      <div class="col-12 mt-3">
         <Tabla :dataCursosTabla="cursos" v-if="!loadSpinner" />
       </div>
     </div>
-    <div>
+    <div class="mt-3">
       <p
         class="borderp rounded p-2"
         :style="'borderColor: purple; color: purple'"

@@ -1,6 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import HomeView from "../views/HomeView.vue";
+import store from "@/store/index.js";
 
 Vue.use(VueRouter);
 
@@ -52,7 +53,8 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  const isAuthenticated = localStorage.getItem("loggedIn");
+  //const isAuthenticated = localStorage.getItem("loggedIn");
+  const isAuthenticated = store.state.loggedIn;
   console.log("Pag. Protegida:", to.meta.requiresAuth);
   if (to.meta.requiresAuth && !isAuthenticated) next({ name: "login" });
   else next();

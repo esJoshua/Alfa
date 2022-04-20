@@ -98,7 +98,7 @@ export default new Vuex.Store({
           password
         );
         commit("SET_LOG", true);
-        localStorage.setItem("loggedIn", "true");
+        //localStorage.setItem("loggedIn", "true");
         router.push("/");
         console.log(userCredential.user);
       } catch (error) {
@@ -116,9 +116,9 @@ export default new Vuex.Store({
           payload.password
         );
         commit("SET_LOG", true);
-        localStorage.setItem("loggedIn", "true");
+        //localStorage.setItem("loggedIn", "true");
         router.push("/");
-        console.log(userCredential.user);
+        console.log(userCredential.user.email);
       } catch (error) {
         console.error(error);
       }
@@ -129,7 +129,7 @@ export default new Vuex.Store({
       try {
         const userCredential = await signOut(auth);
         commit("SET_LOG", false);
-        localStorage.removeItem("loggedIn");
+        //localStorage.removeItem("loggedIn");
         router.push("/login");
         console.log(
           userCredential ? userCredential.user : "userCredential ya no existe"
@@ -138,7 +138,6 @@ export default new Vuex.Store({
         console.error(error);
       }
     },
-
     /*  const auth = getAuth();
    onAuthStateChanged(auth, (user) => {
   if (user) {
@@ -152,23 +151,25 @@ export default new Vuex.Store({
   },  */
     async getCollectionCursos({ commit }) {
       commit("SET_LOAD_SPINNER", true);
-      try {
-        const q = query(collection(db, "cursos"));
-        onSnapshot(q, (querySnapshot) => {
-          const cursos = [];
-          querySnapshot.forEach((doc) => {
-            const curso = {
-              ...doc.data(),
-              idCurso: doc.id,
-            };
-            cursos.push(curso);
+      setTimeout(() => {
+        try {
+          const q = query(collection(db, "cursos"));
+          onSnapshot(q, (querySnapshot) => {
+            const cursos = [];
+            querySnapshot.forEach((doc) => {
+              const curso = {
+                ...doc.data(),
+                idCurso: doc.id,
+              };
+              cursos.push(curso);
+            });
+            commit("SET_DATA_CURSOS", cursos);
+            commit("SET_LOAD_SPINNER", false);
           });
-          commit("SET_DATA_CURSOS", cursos);
-          commit("SET_LOAD_SPINNER", false);
-        });
-      } catch (error) {
-        console.error(error);
-      }
+        } catch (error) {
+          console.error(error);
+        }
+      }, 3000);
     },
 
     async updateCurso(_, payload) {

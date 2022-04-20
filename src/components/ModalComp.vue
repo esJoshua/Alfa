@@ -10,21 +10,6 @@
       @ok="handleOk"
       hide-footer
     >
-      <!-- <form ref="form" @submit.stop.prevent="handleSubmit">
-        <b-form-group
-          label="Name"
-          label-for="name-input"
-          invalid-feedback="Name is required"
-          :state="nameState"
-        >
-          <b-form-input
-            id="name-input"
-            v-model="name"
-            :state="nameState"
-            required
-          ></b-form-input>
-        </b-form-group>
-      </form> -->
       <form ref="form" @submit.stop.prevent="onSubmit">
         <b-form-group id="input-group-1" label-for="input-nombre">
           <b-form-input
