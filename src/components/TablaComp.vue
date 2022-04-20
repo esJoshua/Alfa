@@ -32,7 +32,9 @@
               {{ curso.estado ? "Si" : "No" }}</span
             >
           </td>
-          <td><span class="badge rounded-pill bg-success p-2">Fecha</span></td>
+          <td>
+            <span class="badge rounded-pill bg-success p-2">Fecha</span>
+          </td>
           <td>
             <span
               ><RouterLink class="cursor" :to="`/edicion/${curso.codigo}`"

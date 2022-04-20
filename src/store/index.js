@@ -13,12 +13,11 @@ import {
   updateDoc,
   addDoc,
   deleteDoc,
-  getDocs,
+  onSnapshot,
+  query,
 } from "firebase/firestore";
 import { db } from "@/helpers/firebase.js";
 
-//onSnapshot,
-//query,
 //onAuthStateChanged,
 Vue.use(Vuex);
 
@@ -27,6 +26,7 @@ export default new Vuex.Store({
     user: {},
     loggedIn: false,
     cursos: [],
+    loadSpinner: false,
   },
   mutations: {
     SET_LOG(state, payload) {
@@ -38,21 +38,8 @@ export default new Vuex.Store({
     SET_DATA_CURSOS(state, payload) {
       state.cursos = payload;
     },
-    UPDATE_CURSO(state, payload) {
-      const index = state.cursos.findIndex(
-        (item) => item.idCurso === payload.idCurso
-      );
-      state.cursos[index] = payload;
-    },
-    ADD_CURSO(state, payload) {
-      state.cursos.push(payload);
-    },
-    DELETE_CURSO(state, payload) {
-      const index = state.cursos.findIndex(
-        (item) => item.idCurso === payload.idCurso
-      );
-      console.log(index);
-      state.cursos.splice(index, 1);
+    SET_LOAD_SPINNER(state, payload) {
+      state.loadSpinner = payload;
     },
   },
   getters: {
@@ -163,10 +150,11 @@ export default new Vuex.Store({
     // User is signed out
     // ...
   },  */
-    /*  async getCollectionCursos({ commit }) {
+    async getCollectionCursos({ commit }) {
+      commit("SET_LOAD_SPINNER", true);
       try {
         const q = query(collection(db, "cursos"));
-        const data = onSnapshot(q, (querySnapshot) => {
+        onSnapshot(q, (querySnapshot) => {
           const cursos = [];
           querySnapshot.forEach((doc) => {
             const curso = {
@@ -175,44 +163,27 @@ export default new Vuex.Store({
             };
             cursos.push(curso);
           });
-          console.log(data);
           commit("SET_DATA_CURSOS", cursos);
+          commit("SET_LOAD_SPINNER", false);
         });
-      } catch (error) {
-        console.error(error);
-      }
-    }, */
-    async getCollectionCursos({ commit }) {
-      try {
-        const request = await getDocs(collection(db, "cursos"));
-        const data = request.docs.map((doc) => {
-          const obj = {
-            ...doc.data(),
-            idCurso: doc.id,
-          };
-          return obj;
-        });
-        console.log(data);
-        commit("SET_DATA_CURSOS", data);
       } catch (error) {
         console.error(error);
       }
     },
-    async updateCurso({ commit }, payload) {
+
+    async updateCurso(_, payload) {
       console.log(payload);
       try {
         const docRef = doc(db, "cursos", payload.idCurso);
         await updateDoc(docRef, payload);
         console.log("Ha sido Actualizado el curso con ID: ", docRef.id);
-        commit("UPDATE_CURSO", payload);
         alert("Ha sido Actualizado el curso con codigo: " + payload.codigo);
       } catch (error) {
         console.error(error);
       }
     },
-    async createCurso({ commit }, payload) {
+    async createCurso(_, payload) {
       try {
-        //commit("SET_CARGAR_SPINNER", true);
         const docRef = await addDoc(collection(db, "cursos"), {
           nombre: payload.nombre,
           imagen: payload.imagen,
@@ -223,29 +194,19 @@ export default new Vuex.Store({
           codigo: payload.codigo,
           descripcion: payload.descripcion,
         });
-        const cursoLocal = {
-          ...payload,
-          idCurso: docRef.id,
-        };
-        console.log(cursoLocal);
-        console.log(payload);
+        //console.log(payload);
         console.log("Ha sido Creado el curso con ID: ", docRef.id);
-        commit("ADD_CURSO", cursoLocal);
         alert("Ha sido Creado el curso con codigo: " + payload.codigo);
-        //commit("SET_CARGAR_SPINNER", false);
       } catch (error) {
         console.error(error);
       }
     },
-    async deleteCurso({ commit }, payload) {
+    async deleteCurso(_, payload) {
       console.log(payload);
       try {
-        //commit("SET_CARGAR_SPINNER", true);
         await deleteDoc(doc(db, "cursos", payload.idCurso));
         console.log("Ha sido Eliminado el curso con ID: ", payload.idCurso);
-        commit("DELETE_CURSO", payload);
         alert("Ha sido Eliminado el curso con codigo: " + payload.codigo);
-        //commit("SET_CARGAR_SPINNER", false);
       } catch (error) {
         console.error(error);
       }

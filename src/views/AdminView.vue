@@ -10,8 +10,18 @@
       <button v-b-modal.modal-add-curso class="btn btn-primary mb-3 col-12">
         Agregar Curso
       </button>
+      <template v-if="loadSpinner">
+        <div
+          class="text-primary text-center my-5"
+          role="status"
+          aria-hidden="true"
+        >
+          <div class="spinner-border m-3"></div>
+          <div>Cargando contenido...</div>
+        </div>
+      </template>
       <div class="col-12">
-        <Tabla :dataCursosTabla="cursos" />
+        <Tabla :dataCursosTabla="cursos" v-if="!loadSpinner" />
       </div>
     </div>
     <div>
@@ -57,7 +67,7 @@ import Modal from "@/components/ModalComp.vue";
 export default {
   name: "AdministracionView",
   computed: {
-    ...mapState(["user", "cursos"]),
+    ...mapState(["user", "cursos", "loadSpinner"]),
     ...mapGetters([
       "totalCursos",
       "totalCupos",
