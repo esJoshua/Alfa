@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container mt-4">
     <div class="row">
       <div class="col-12 text-center">
         <h1 class="display-2">Ingrese sus Datos</h1>
@@ -15,6 +15,7 @@
               placeholder="Intenta con: prueba@correo.com"
               type="email"
               v-model="dataUser.user"
+              required
             />
           </div>
           <div>
@@ -24,6 +25,7 @@
               placeholder="Ingresa 123456"
               type="password"
               v-model="dataUser.password"
+              required
             />
           </div>
           <div class="mt-3">

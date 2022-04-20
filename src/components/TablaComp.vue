@@ -35,11 +35,11 @@
           <td><span class="badge rounded-pill bg-success p-2">Fecha</span></td>
           <td>
             <span
-              ><RouterLink :to="`/edicion/${curso.codigo}`"
+              ><RouterLink class="cursor" :to="`/edicion/${curso.codigo}`"
                 >✏️</RouterLink
               ></span
             >
-            <span @click="deleteCursoBtn(curso)">🗑️</span>
+            <span class="cursor" @click="deleteCursoBtn(curso)">🗑️</span>
           </td>
         </tr>
       </tbody>
@@ -91,5 +91,9 @@ export default {
 <style>
 .close {
   display: none;
+}
+.cursor {
+  cursor: pointer;
+  text-decoration: none;
 }
 </style>

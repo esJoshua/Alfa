@@ -7,6 +7,7 @@
           style="max-width: 23rem"
           :img-src="curso.imagen"
           :img-alt="curso.nombre"
+          @error="imgError"
           class="img-fluid"
           img-top
         >
@@ -45,6 +46,11 @@ export default {
     dataCursosCard: {
       type: Array,
       default: () => [],
+    },
+  },
+  methods: {
+    imgError() {
+      console.log("Image failed to load");
     },
   },
 };

@@ -9,14 +9,16 @@ import {
 } from "firebase/auth";
 import {
   collection,
-  getDocs,
   doc,
   updateDoc,
   addDoc,
   deleteDoc,
+  getDocs,
 } from "firebase/firestore";
 import { db } from "@/helpers/firebase.js";
 
+//onSnapshot,
+//query,
 //onAuthStateChanged,
 Vue.use(Vuex);
 
@@ -61,14 +63,14 @@ export default new Vuex.Store({
       let totalCupos = 0;
       state.cursos.forEach((cupo) => {
         //console.log(cupo.cupos);
-        totalCupos = totalCupos + parseInt(cupo.cupos);
+        totalCupos = totalCupos + Number(cupo.cupos);
       });
       return totalCupos;
     },
     totalInscritos(state) {
       return state.cursos.reduce((accumulator, curso) => {
         //return state.cursos.reduce((accumulator, curso, i) => {
-        accumulator = accumulator + curso.inscritos;
+        accumulator = accumulator + Number(curso.inscritos);
         //console.log("iteración", 1 + i++, accumulator);
         return accumulator;
       }, 0);
@@ -76,7 +78,7 @@ export default new Vuex.Store({
     cuposRestantes(state) {
       return state.cursos.reduce((accumulator, curso) => {
         //return state.cursos.reduce((accumulator, curso, i) => {
-        accumulator = accumulator + curso.cupos - curso.inscritos;
+        accumulator = accumulator + Number(curso.cupos - curso.inscritos);
         //console.log("iteración", 1 + i++, curso.cupos - curso.inscritos);
         return accumulator;
       }, 0);
@@ -84,7 +86,7 @@ export default new Vuex.Store({
     cursosTerminados(state) {
       return state.cursos.reduce((accumulator, item) => {
         accumulator = accumulator + item.estado;
-        //console.log(+item.estado);
+        console.log(+item.estado);
         return accumulator;
       }, 0);
     },
@@ -161,6 +163,25 @@ export default new Vuex.Store({
     // User is signed out
     // ...
   },  */
+    /*  async getCollectionCursos({ commit }) {
+      try {
+        const q = query(collection(db, "cursos"));
+        const data = onSnapshot(q, (querySnapshot) => {
+          const cursos = [];
+          querySnapshot.forEach((doc) => {
+            const curso = {
+              ...doc.data(),
+              idCurso: doc.id,
+            };
+            cursos.push(curso);
+          });
+          console.log(data);
+          commit("SET_DATA_CURSOS", cursos);
+        });
+      } catch (error) {
+        console.error(error);
+      }
+    }, */
     async getCollectionCursos({ commit }) {
       try {
         const request = await getDocs(collection(db, "cursos"));
@@ -194,7 +215,7 @@ export default new Vuex.Store({
         //commit("SET_CARGAR_SPINNER", true);
         const docRef = await addDoc(collection(db, "cursos"), {
           nombre: payload.nombre,
-          imagen: payload.URLimg,
+          imagen: payload.imagen,
           cupos: payload.cupos,
           inscritos: payload.inscritos,
           duracion: payload.duracion,
@@ -202,8 +223,15 @@ export default new Vuex.Store({
           codigo: payload.codigo,
           descripcion: payload.descripcion,
         });
+        const cursoLocal = {
+          ...payload,
+          idCurso: docRef.id,
+        };
+        console.log(cursoLocal);
+        console.log(payload);
         console.log("Ha sido Creado el curso con ID: ", docRef.id);
-        commit("ADD_CURSO", payload);
+        commit("ADD_CURSO", cursoLocal);
+        alert("Ha sido Creado el curso con codigo: " + payload.codigo);
         //commit("SET_CARGAR_SPINNER", false);
       } catch (error) {
         console.error(error);

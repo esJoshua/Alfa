@@ -1,5 +1,5 @@
 <template>
-  <b-container>
+  <b-container class="mt-4">
     <b-row>
       <b-col>
         <h1 class="text-center">Editando el curso:</h1>

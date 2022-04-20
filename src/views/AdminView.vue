@@ -1,8 +1,6 @@
 <template>
-  <div class="container">
+  <div class="container mt-4">
     <Modal />
-    <h1>{{ user.user }}</h1>
-    <h1>{{ user.password }}</h1>
     <div class="row">
       <div class="col-12">
         <h1 class="text-center">Administración</h1>

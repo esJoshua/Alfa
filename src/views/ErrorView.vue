@@ -1,5 +1,5 @@
 <template>
-  <h1>
+  <h1 class="mt-4">
     Pagina No Encontrada <br />
     <strong>error 404</strong>
   </h1>
