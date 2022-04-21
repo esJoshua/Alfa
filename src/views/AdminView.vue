@@ -24,6 +24,7 @@
         <Tabla :dataCursosTabla="cursos" v-if="!loadSpinner" />
       </div>
     </div>
+
     <div class="mt-3">
       <p
         class="borderp rounded p-2"

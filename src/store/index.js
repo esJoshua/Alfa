@@ -73,7 +73,7 @@ export default new Vuex.Store({
     cursosTerminados(state) {
       return state.cursos.reduce((accumulator, item) => {
         accumulator = accumulator + item.estado;
-        console.log(+item.estado);
+        //console.log(+item.estado);
         return accumulator;
       }, 0);
     },

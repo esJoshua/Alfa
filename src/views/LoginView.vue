@@ -5,8 +5,8 @@
         <h1 class="display-2">Ingrese sus Datos</h1>
       </div>
     </div>
-    <div class="row">
-      <div class="col-12">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
         <div class="login borderless">
           <div>
             <label class="login__title">Usuario</label>
@@ -15,6 +15,7 @@
               placeholder="Intenta con: prueba@correo.com"
               type="email"
               v-model="dataUser.user"
+              minlength="6"
               required
             />
           </div>
@@ -25,6 +26,7 @@
               placeholder="Ingresa 123456"
               type="password"
               v-model="dataUser.password"
+              minlength="6"
               required
             />
           </div>

@@ -1,20 +1,23 @@
 <template>
   <b-container>
-    <b-row>
-      <b-col v-for="curso of dataCursosCard" :key="curso.codigo" sm="4">
-        <b-card
-          no-body
-          style="max-width: 23rem"
-          :img-src="curso.imagen"
-          :img-alt="curso.nombre"
-          @error="imgError"
-          class="img-fluid"
-          img-top
-        >
-          <template #header>
+    <b-row class="justify-content-evenly">
+      <b-col
+        v-for="curso of dataCursosCard"
+        :key="curso.codigo"
+        sm="6"
+        md="4"
+        class="m-1 g-0"
+        style="width: 23rem"
+      >
+        <b-card>
+          <div
+            class="bgimg"
+            :style="`background-image: url(${curso.imagen})`"
+            :img-alt="curso.nombre"
+            @error="imgError"
+          ></div>
+          <b-card-body text-variant="secondary">
             <b-card-title>{{ curso.nombre }}</b-card-title>
-          </template>
-          <b-card-body>
             <b-card-sub-title class="mb-2">Información</b-card-sub-title>
             <b-card-text>
               <b-list-group flush>
@@ -56,4 +59,11 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.bgimg {
+  height: 13rem;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+</style>

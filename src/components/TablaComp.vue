@@ -1,51 +1,50 @@
 <template>
   <div>
-    <table class="table text-center">
-      <thead>
-        <tr>
-          <th scope="col" class="text-start">Curso</th>
-          <th scope="col">Cupos</th>
-          <th scope="col">Inscritos</th>
-          <th scope="col">Duración</th>
-          <th scope="col">Costo</th>
-          <th scope="col">Terminado</th>
-          <th scope="col">Fecha</th>
-          <th scope="col">Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="curso of dataCursosTabla" :key="curso.codigo">
-          <td class="text-start">{{ curso.nombre }}</td>
-          <td>{{ curso.cupos }}</td>
-          <td>{{ curso.inscritos }}</td>
-          <td>{{ curso.duracion }}</td>
-          <td>
+    <!-- <table class="table text-center"> -->
+    <b-table-simple hover small responsive class="text-center">
+      <b-thead head-variant="dark">
+        <b-tr>
+          <b-th scope="col" class="text-start">Curso</b-th>
+          <b-th scope="col">Cupos</b-th>
+          <b-th scope="col">Inscritos</b-th>
+          <b-th scope="col">Duración</b-th>
+          <b-th scope="col">Costo</b-th>
+          <b-th scope="col">Terminado</b-th>
+          <b-th scope="col">Fecha</b-th>
+          <b-th scope="col">Acciones</b-th>
+        </b-tr>
+      </b-thead>
+      <b-tbody>
+        <b-tr v-for="curso of dataCursosTabla" :key="curso.codigo">
+          <b-td class="text-start">{{ curso.nombre }}</b-td>
+          <b-td>{{ curso.cupos }}</b-td>
+          <b-td>{{ curso.inscritos }}</b-td>
+          <b-td>{{ curso.duracion }}</b-td>
+          <b-td>
             <span class="badge rounded-pill bg-info p-2"
-              >${{ curso.costo }}</span
+              >${{ curso.costo.toLocaleString("DE-de") }}</span
             >
-          </td>
-          <td>
+          </b-td>
+          <b-td>
             <span
               class="py-2 px-4 badge rounded-pill text-center"
               :class="[curso.estado ? 'bg-primary' : 'bg-secondary']"
             >
               {{ curso.estado ? "Si" : "No" }}</span
             >
-          </td>
-          <td>
+          </b-td>
+          <b-td>
             <span class="badge rounded-pill bg-success p-2">Fecha</span>
-          </td>
-          <td>
-            <span
-              ><RouterLink class="cursor" :to="`/edicion/${curso.codigo}`"
-                >✏️</RouterLink
-              ></span
+          </b-td>
+          <b-td>
+            <RouterLink class="cursor" :to="`/edicion/${curso.codigo}`"
+              >✏️</RouterLink
             >
             <span class="cursor" @click="deleteCursoBtn(curso)">🗑️</span>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+          </b-td>
+        </b-tr>
+      </b-tbody>
+    </b-table-simple>
   </div>
 </template>
 

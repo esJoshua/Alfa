@@ -8,10 +8,14 @@
     <b-row>
       <b-col>
         <b-form @submit.prevent="onSubmit" @reset="resetForm">
-          <b-form-group id="input-group-1" label="Nombre:" label-for="input-1">
+          <b-form-group
+            id="input-group-1"
+            label="Nombre:"
+            label-for="input-nombre"
+          >
             <b-form-input
               class="border-input"
-              id="input-1"
+              id="input-nombre"
               v-model="nombre"
               type="text"
               required
@@ -21,11 +25,11 @@
           <b-form-group
             id="input-group-2"
             label="URL de la imagen del curso:"
-            label-for="input-2"
+            label-for="input-URLimg"
           >
             <b-form-input
               class="border-input"
-              id="input-2"
+              id="input-URLimg"
               v-model="URLimg"
               required
             ></b-form-input>
@@ -34,11 +38,11 @@
           <b-form-group
             id="input-group-3"
             label="Cupos del curso:"
-            label-for="input-3"
+            label-for="input-cupos"
           >
             <b-form-input
               class="border-input"
-              id="input-3"
+              id="input-cupos"
               v-model="cupos"
               type="number"
               required
@@ -48,11 +52,11 @@
           <b-form-group
             id="input-group-4"
             label="Inscritos en el curso:"
-            label-for="input-4"
+            label-for="input-inscritos"
           >
             <b-form-input
               class="border-input"
-              id="input-4"
+              id="input-inscritos"
               v-model="inscritos"
               type="number"
               required
@@ -61,11 +65,11 @@
           <b-form-group
             id="input-group-5"
             label="Duración del curso:"
-            label-for="input-5"
+            label-for="input-duracion"
           >
             <b-form-input
               class="border-input"
-              id="input-5"
+              id="input-duracion"
               v-model="duracion"
               type="text"
               required
@@ -75,11 +79,11 @@
           <b-form-group
             id="input-group-6"
             label="Costo del curso:"
-            label-for="input-6"
+            label-for="input-costo"
           >
             <b-form-input
               class="border-input"
-              id="input-6"
+              id="input-costo"
               v-model="costo"
               type="number"
               required
@@ -88,11 +92,11 @@
           <b-form-group
             id="input-group-7"
             label="Código del curso:"
-            label-for="input-7"
+            label-for="input-codigo"
           >
             <b-form-input
               class="border-input"
-              id="text-7"
+              id="text-codigo"
               v-model="codigo"
               type="text"
               required
@@ -101,13 +105,14 @@
           <b-form-group
             id="input-group-8"
             label="Descripción del curso:"
-            label-for="input-8"
+            label-for="input-descripcion"
           >
             <b-form-textarea
-              id="text-8"
+              id="input-descripcion"
               v-model="descripcion"
               type="text"
               required
+              minlength="40"
               rows="4"
             ></b-form-textarea>
           </b-form-group>

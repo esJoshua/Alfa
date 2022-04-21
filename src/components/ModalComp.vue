@@ -19,6 +19,7 @@
             invalid-feedback="Campo requerido"
             type="text"
             placeholder="Nombre"
+            title="Nombre del curso"
             maxlength="30"
             required
           ></b-form-input>
@@ -31,6 +32,7 @@
             v-model="curso.imagen"
             invalid-feedback="Campo requerido"
             placeholder="URL de la imagen del curso"
+            title="URL de la imagen del curso"
             required
           ></b-form-input>
         </b-form-group>
@@ -42,6 +44,7 @@
             v-model="curso.cupos"
             invalid-feedback="Campo requerido"
             placeholder="Cupos del curso"
+            title="Cupos del curso"
             type="number"
             required
           ></b-form-input>
@@ -53,7 +56,8 @@
             id="input-4"
             v-model="curso.inscritos"
             invalid-feedback="Campo requerido"
-            placeholder="Inscritos en el curso"
+            placeholder="Número de inscritos en el curso"
+            title="Inscritos en el curso"
             type="number"
             required
           ></b-form-input>
@@ -65,6 +69,7 @@
             v-model="curso.duracion"
             invalid-feedback="Campo requerido"
             placeholder="Duración del curso"
+            title="Duración del curso"
             type="text"
             required
           ></b-form-input>
@@ -77,6 +82,7 @@
             v-model="curso.costo"
             invalid-feedback="Campo requerido"
             placeholder="Costo del curso"
+            title="Costo del curso"
             type="number"
             required
           ></b-form-input>
@@ -88,6 +94,7 @@
             v-model.trim="curso.codigo"
             invalid-feedback="Campo requerido"
             placeholder="Código del curso"
+            title="Código del curso"
             type="text"
             required
           ></b-form-input>
@@ -99,6 +106,7 @@
             v-model="curso.descripcion"
             invalid-feedback="Campo requerido"
             placeholder="Descripción del curso"
+            title="Descripción del curso"
             type="text"
             required
             rows="4"
