@@ -1,6 +1,5 @@
 <template>
   <div>
-    <!-- <table class="table text-center"> -->
     <b-table-simple hover small responsive class="text-center">
       <b-thead head-variant="dark">
         <b-tr>

@@ -2,7 +2,7 @@
   <div id="app">
     <Navbar />
 
-    <router-view class="padding" />
+    <router-view class="views-container" />
 
     <Footer />
   </div>
@@ -33,7 +33,7 @@ export default {
   min-height: 100vh;
   position: relative;
 }
-.padding {
+.views-container {
   padding-bottom: 8rem;
 }
 </style>

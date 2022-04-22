@@ -1,15 +1,17 @@
 <template>
-  <div class="container mt-4">
+  <b-container class="mt-4">
     <Modal />
-    <div class="row">
-      <div class="col-12">
+    <b-row>
+      <b-col>
         <h1 class="text-center">Administración</h1>
-      </div>
-    </div>
-    <div class="row">
-      <button v-b-modal.modal-add-curso class="btn btn-primary mt-3 col-12">
-        Agregar Curso
-      </button>
+      </b-col>
+    </b-row>
+    <b-row>
+      <b-col cols="12">
+        <button v-b-modal.modal-add-curso class="btn btn-primary mt-3 w-100">
+          Agregar Curso
+        </button>
+      </b-col>
       <template v-if="loadSpinner">
         <div
           class="text-primary text-center my-5"
@@ -20,10 +22,10 @@
           <div>Cargando contenido...</div>
         </div>
       </template>
-      <div class="col-12 mt-3">
+      <b-col class="mt-3">
         <Tabla :dataCursosTabla="cursos" v-if="!loadSpinner" />
-      </div>
-    </div>
+      </b-col>
+    </b-row>
 
     <div class="mt-3">
       <p
@@ -58,7 +60,7 @@
         Cantidad total de cursos: {{ totalCursos }} cursos
       </p>
     </div>
-  </div>
+  </b-container>
 </template>
 
 <script>

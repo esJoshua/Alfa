@@ -7,11 +7,11 @@
     </div>
     <div class="row justify-content-center">
       <div class="col-md-6">
-        <div class="login borderless">
+        <div>
           <div>
-            <label class="login__title">Usuario</label>
+            <label class="form-label">Usuario</label>
             <input
-              class="login__input form-control"
+              class="form-control"
               placeholder="Intenta con: prueba@correo.com"
               type="email"
               v-model="dataUser.user"
@@ -19,10 +19,10 @@
               required
             />
           </div>
-          <div>
-            <label class="login__title mt-3">Contraseña</label>
+          <div class="mt-3">
+            <label class="form-label">Contraseña</label>
             <input
-              class="login__input form-control"
+              class="form-control"
               placeholder="Ingresa 123456"
               type="password"
               v-model="dataUser.password"
@@ -30,13 +30,16 @@
               required
             />
           </div>
-          <div class="mt-3">
-            <button @click="login" class="login__btn btn btn-primary mx-2">
+          <div class="text-center mt-3">
+            <button @click="login" class="btn btn-primary mx-2">
               Ingresar
             </button>
-            <RouterLink to="/registro" class="login__btn btn btn-primary mx-2">
-              Registrar Nuevo Usuario
-            </RouterLink>
+          </div>
+          <div class="text-center mt-2">
+            <p>
+              No estás registrado?
+              <RouterLink to="/registro">Click aquí</RouterLink>
+            </p>
           </div>
         </div>
       </div>

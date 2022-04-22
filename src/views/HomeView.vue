@@ -1,6 +1,10 @@
 <template>
-  <div>
-    <h1 class="mb-3 text-center mt-4">Lista de Cursos</h1>
+  <b-container class="mt-4">
+    <b-row>
+      <b-col>
+        <h1 class="text-center">Lista de Cursos</h1>
+      </b-col>
+    </b-row>
     <template v-if="loadSpinner">
       <div
         class="text-primary text-center my-5"
@@ -11,8 +15,8 @@
         <div>Cargando contenido...</div>
       </div>
     </template>
-    <Card :dataCursosCard="cursos" v-if="!loadSpinner" />
-  </div>
+    <Card class="mt-3" :dataCursosCard="cursos" v-if="!loadSpinner" />
+  </b-container>
 </template>
 
 <script>

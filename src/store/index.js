@@ -102,8 +102,10 @@ export default new Vuex.Store({
         router.push("/");
         console.log(userCredential.user);
       } catch (error) {
-        alert(error.message);
-        console.error(error);
+        if (error.code === "auth/invalid-email")
+          alert("Escribe un correo valido");
+        else if (error.code === "auth/weak-password")
+          alert("Contraseña debil, debe contener al menos 6 caracteres");
       }
     },
 
@@ -120,7 +122,10 @@ export default new Vuex.Store({
         router.push("/");
         console.log(userCredential.user.email);
       } catch (error) {
-        console.error(error);
+        if (error.code === "auth/user-not-found")
+          alert("Usuario no encontrado");
+        else if (error.code === "auth/wrong-password")
+          alert("La contraseña no coincide");
       }
     },
 
@@ -138,17 +143,7 @@ export default new Vuex.Store({
         console.error(error);
       }
     },
-    /*  const auth = getAuth();
-   onAuthStateChanged(auth, (user) => {
-  if (user) {
-    // User is signed in, see docs for a list of available properties
-    // https://firebase.google.com/docs/reference/js/firebase.User
-    const uid = user.uid;
-    // ...
-  } else {
-    // User is signed out
-    // ...
-  },  */
+
     async getCollectionCursos({ commit }) {
       commit("SET_LOAD_SPINNER", true);
       setTimeout(() => {
