@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-navbar toggleable="md" type="dark" variant="info" class="p-3">
+    <b-navbar toggleable="md" type="dark" class="p-3">
       <b-navbar-brand to="/">Cursos AlfaWeb</b-navbar-brand>
 
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
@@ -64,6 +64,9 @@ export default {
 }
 a {
   font-weight: bold;
+}
+nav {
+  background-color: #000000;
 }
 .navbar-brand {
   font-size: 2rem;

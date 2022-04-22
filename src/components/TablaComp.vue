@@ -1,6 +1,13 @@
 <template>
   <div>
-    <b-table-simple hover small responsive class="text-center">
+    <b-table-simple
+      hover
+      striped
+      small
+      responsive
+      class="text-center g-0"
+      table-variant="light"
+    >
       <b-thead head-variant="dark">
         <b-tr>
           <b-th scope="col" class="text-start">Curso</b-th>

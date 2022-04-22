@@ -1,5 +1,5 @@
 <template>
-  <div class="container mt-4">
+  <div class="container mt-4 text-white">
     <div class="row">
       <div class="col-12 text-center">
         <h1 class="display-2">Ingrese sus Datos</h1>
@@ -38,7 +38,9 @@
           <div class="text-center mt-2">
             <p>
               No estás registrado?
-              <RouterLink to="/registro">Click aquí</RouterLink>
+              <RouterLink class="text-white" to="/registro"
+                >Click aquí</RouterLink
+              >
             </p>
           </div>
         </div>

@@ -3,11 +3,11 @@
     <Modal />
     <b-row>
       <b-col>
-        <h1 class="text-center">Administración</h1>
+        <h1 class="text-center text-white">Administración</h1>
       </b-col>
     </b-row>
     <b-row>
-      <b-col cols="12">
+      <b-col cols="12 g-0">
         <button v-b-modal.modal-add-curso class="btn btn-primary mt-3 w-100">
           Agregar Curso
         </button>
@@ -22,44 +22,51 @@
           <div>Cargando contenido...</div>
         </div>
       </template>
-      <b-col class="mt-3">
+      <b-col class="mt-3 g-0">
         <Tabla :dataCursosTabla="cursos" v-if="!loadSpinner" />
       </b-col>
     </b-row>
-
-    <div class="mt-3">
-      <p
-        class="borderp rounded p-2"
-        :style="'borderColor: purple; color: purple'"
-      >
-        Cantidad total de alumnos permitidos:
-        {{ totalCupos }} alumnos
-      </p>
-      <p class="borderp rounded p-2" :style="'border-color: blue; color:blue'">
-        Cantidad total de alumnos inscritos: {{ totalInscritos }} alumnos
-      </p>
-      <p class="borderp rounded p-2" :style="'border-color: red; color:red'">
-        Cantidad total de cupos restantes: {{ cuposRestantes }} alumnos
-      </p>
-      <p
-        class="borderp rounded p-2"
-        :style="'border-color: rgb(243, 31, 148); color:rgb(243, 31, 148)'"
-      >
-        Cantidad total de curso terminados: {{ cursosTerminados }} cursos
-      </p>
-      <p
-        class="borderp rounded p-2"
-        :style="'border-color: brown; color:brown'"
-      >
-        Cantidad total de cursos activos: {{ cursosActivos }} cursos
-      </p>
-      <p
-        class="borderp rounded p-2"
-        :style="'border-color: orange; color:orange'"
-      >
-        Cantidad total de cursos: {{ totalCursos }} cursos
-      </p>
-    </div>
+    <b-row>
+      <div class="mt-3 resume-bg">
+        <p
+          class="resume-border rounded p-2"
+          :style="'borderColor: purple; color: purple'"
+        >
+          Cantidad total de alumnos permitidos:
+          {{ totalCupos }} alumnos
+        </p>
+        <p
+          class="resume-border rounded p-2"
+          :style="'border-color: blue; color:blue'"
+        >
+          Cantidad total de alumnos inscritos: {{ totalInscritos }} alumnos
+        </p>
+        <p
+          class="resume-border rounded p-2"
+          :style="'border-color: red; color:red'"
+        >
+          Cantidad total de cupos restantes: {{ cuposRestantes }} alumnos
+        </p>
+        <p
+          class="resume-border rounded p-2"
+          :style="'border-color: rgb(243, 31, 148); color:rgb(243, 31, 148)'"
+        >
+          Cantidad total de curso terminados: {{ cursosTerminados }} cursos
+        </p>
+        <p
+          class="resume-border rounded p-2"
+          :style="'border-color: brown; color:brown'"
+        >
+          Cantidad total de cursos activos: {{ cursosActivos }} cursos
+        </p>
+        <p
+          class="resume-border rounded p-2"
+          :style="'border-color: orange; color:orange'"
+        >
+          Cantidad total de cursos: {{ totalCursos }} cursos
+        </p>
+      </div>
+    </b-row>
   </b-container>
 </template>
 
@@ -88,7 +95,11 @@ export default {
 </script>
 
 <style>
-.borderp {
-  border: 1px solid;
+.resume-border {
+  border: 2px solid;
+  background-color: white;
+}
+.resume-bg {
+  background-color: rgba(5, 5, 5, 0.8);
 }
 </style>

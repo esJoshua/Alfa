@@ -2,7 +2,7 @@
   <b-container class="mt-4">
     <b-row>
       <b-col>
-        <h1 class="text-center">Lista de Cursos</h1>
+        <h1 class="text-center text-white">Lista de Cursos</h1>
       </b-col>
     </b-row>
     <template v-if="loadSpinner">
@@ -11,8 +11,8 @@
         role="status"
         aria-hidden="true"
       >
-        <div class="spinner-border m-3"></div>
-        <div>Cargando contenido...</div>
+        <div class="spinner-border m-3" style="color: #4ff149"></div>
+        <div style="color: #4ff149">Cargando contenido...</div>
       </div>
     </template>
     <Card class="mt-3" :dataCursosCard="cursos" v-if="!loadSpinner" />

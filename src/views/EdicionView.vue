@@ -1,20 +1,22 @@
 <template>
-  <b-container class="mt-4">
+  <b-container
+    class="mt-4 text-white d-flex flex-column justify-content-center align-items-center"
+  >
     <b-row>
       <b-col>
-        <h1 class="text-center">Editando el curso:</h1>
+        <h1>Editando el curso:</h1>
       </b-col>
     </b-row>
     <b-row>
       <b-col>
-        <b-form @submit.prevent="onSubmit" @reset="resetForm">
+        <b-form class="input-bg" @submit.prevent="onSubmit" @reset="resetForm">
           <b-form-group
             id="input-group-1"
             label="Nombre:"
             label-for="input-nombre"
           >
             <b-form-input
-              class="border-input"
+              class="input-border"
               id="input-nombre"
               v-model="nombre"
               type="text"
@@ -28,7 +30,7 @@
             label-for="input-URLimg"
           >
             <b-form-input
-              class="border-input"
+              class="input-border"
               id="input-URLimg"
               v-model="URLimg"
               required
@@ -41,7 +43,7 @@
             label-for="input-cupos"
           >
             <b-form-input
-              class="border-input"
+              class="input-border"
               id="input-cupos"
               v-model="cupos"
               type="number"
@@ -55,7 +57,7 @@
             label-for="input-inscritos"
           >
             <b-form-input
-              class="border-input"
+              class="input-border"
               id="input-inscritos"
               v-model="inscritos"
               type="number"
@@ -68,7 +70,7 @@
             label-for="input-duracion"
           >
             <b-form-input
-              class="border-input"
+              class="input-border"
               id="input-duracion"
               v-model="duracion"
               type="text"
@@ -82,7 +84,7 @@
             label-for="input-costo"
           >
             <b-form-input
-              class="border-input"
+              class="input-border"
               id="input-costo"
               v-model="costo"
               type="number"
@@ -95,7 +97,7 @@
             label-for="input-codigo"
           >
             <b-form-input
-              class="border-input"
+              class="input-border"
               id="text-codigo"
               v-model="codigo"
               type="text"
@@ -125,16 +127,14 @@
             ></b-form-input>
           </b-form-group>
           <div class="mt-3 text-center">
-            <b-button type="submit" variant="outline-success"
-              >ACTUALIZAR</b-button
-            >
-            <b-button class="m-3" type="reset" variant="outline-danger"
+            <b-button type="submit" variant="success">ACTUALIZAR</b-button>
+            <b-button class="m-3" type="reset" variant="danger"
               >LIMPIAR FORMULARIO</b-button
             >
-            <b-button class="m-3" type="button" variant="outline-warning">
+            <b-button class="m-3" type="button" variant="warning">
               LIMPIAR VALIDACIÓN</b-button
             >
-            <b-button to="/admin" type="button" variant="outline-primary">
+            <b-button to="/admin" type="button" variant="primary">
               REGRESAR
             </b-button>
           </div>
@@ -279,7 +279,10 @@ export default {
 </script>
 
 <style>
-.border-input {
+.input-bg {
+  background-color: rgba(5, 5, 5, 0.8);
+}
+.input-border {
   border-block-start-style: none;
 }
 </style>

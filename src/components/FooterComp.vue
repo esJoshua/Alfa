@@ -1,7 +1,7 @@
 <template>
   <footer
-    class="text-center text-white mt-4 w-100"
-    style="background-color: #17a2b8"
+    class="text-center text-white w-100"
+    style="background-color: #000000"
   >
     <div class="container p-3 pb-0">
       <section>
@@ -20,7 +20,7 @@
       </section>
     </div>
 
-    <div class="text-center p-3" style="background-color: #17a2b8">
+    <div class="text-center p-3" style="background-color: #000000">
       © 2022 Copyright: AlfaWeb J.E.
     </div>
   </footer>

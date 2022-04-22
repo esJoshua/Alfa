@@ -13,7 +13,7 @@
       <form ref="form" @submit.stop.prevent="onSubmit">
         <b-form-group id="input-group-1" label-for="input-nombre">
           <b-form-input
-            class="border-input"
+            class="border-input shadow"
             id="input-nombre"
             v-model.trim="curso.nombre"
             invalid-feedback="Campo requerido"
@@ -27,7 +27,7 @@
 
         <b-form-group id="input-group-2" label-for="input-2">
           <b-form-input
-            class="border-input mt-3"
+            class="border-input mt-3 shadow"
             id="input-imagen"
             v-model="curso.imagen"
             invalid-feedback="Campo requerido"
@@ -39,7 +39,7 @@
 
         <b-form-group id="input-group-3" label-for="input-curso">
           <b-form-input
-            class="border-input mt-3"
+            class="border-input mt-3 shadow"
             id="input-3"
             v-model="curso.cupos"
             invalid-feedback="Campo requerido"
@@ -52,7 +52,7 @@
 
         <b-form-group id="input-group-4" label-for="input-inscritos">
           <b-form-input
-            class="border-input mt-3"
+            class="border-input mt-3 shadow"
             id="input-4"
             v-model="curso.inscritos"
             invalid-feedback="Campo requerido"
@@ -64,7 +64,7 @@
         </b-form-group>
         <b-form-group id="input-group-5" label-for="input-duracion">
           <b-form-input
-            class="border-input mt-3"
+            class="border-input mt-3 shadow"
             id="input-5"
             v-model="curso.duracion"
             invalid-feedback="Campo requerido"
@@ -77,7 +77,7 @@
 
         <b-form-group id="input-group-6" label-for="input-costo">
           <b-form-input
-            class="border-input mt-3"
+            class="border-input mt-3 shadow"
             id="input-6"
             v-model="curso.costo"
             invalid-feedback="Campo requerido"
@@ -89,7 +89,7 @@
         </b-form-group>
         <b-form-group id="input-group-7" label-for="input-codigo">
           <b-form-input
-            class="border-input mt-3"
+            class="border-input mt-3 shadow"
             id="text-7"
             v-model.trim="curso.codigo"
             invalid-feedback="Campo requerido"
@@ -102,7 +102,7 @@
         <b-form-group id="input-group-8" label-for="input-descripcion">
           <b-form-textarea
             id="text-8"
-            class="mt-3"
+            class="mt-3 shadow"
             v-model="curso.descripcion"
             invalid-feedback="Campo requerido"
             placeholder="Descripción del curso"

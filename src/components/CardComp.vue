@@ -74,4 +74,8 @@ export default {
   background-repeat: no-repeat;
   background-size: contain;
 }
+.card:hover {
+  border-color: #4ff149;
+  box-shadow: 20px 20px 20px 10px #1adb6ac5;
+}
 </style>

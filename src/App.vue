@@ -28,10 +28,15 @@ export default {
 };
 </script>
 <style lang="scss">
+* {
+  padding: 0;
+  margin: 0;
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   min-height: 100vh;
   position: relative;
+  background-image: url("https://wallpaperboat.com/wp-content/uploads/2020/04/matrix-wallpaper-download-13.jpg");
 }
 .views-container {
   padding-bottom: 8rem;

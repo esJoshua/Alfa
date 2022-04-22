@@ -1,5 +1,5 @@
 <template>
-  <form class="container mt-4">
+  <form class="container mt-4 text-white">
     <div class="row">
       <div class="col-12 text-center">
         <h1 class="display-2">Registre sus Datos</h1>
@@ -37,6 +37,7 @@
               class="form-check-input me-2"
               type="checkbox"
               value=""
+              onclick="btn.disabled = !checked"
               required
             />
             <label class="form-check-label">
@@ -44,7 +45,12 @@
             </label>
           </div>
           <div class="text-center">
-            <button @submit="createUserNew" class="btn btn-primary mt-3">
+            <button
+              @click="createUserNew"
+              name="btn"
+              disabled
+              class="btn btn-primary mt-3"
+            >
               Crear Usuario
             </button>
           </div>
