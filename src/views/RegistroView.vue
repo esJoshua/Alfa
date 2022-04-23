@@ -1,59 +1,48 @@
 <template>
   <form class="container mt-4 text-white">
-    <div class="row">
-      <div class="col-12 text-center">
-        <h1 class="display-2">Registre sus Datos</h1>
-      </div>
-    </div>
     <div class="row justify-content-center">
-      <div class="col-md-6">
-        <div class="borderless">
-          <div>
-            <label class="form-label">Usuario</label>
-            <input
-              class="form-control"
-              placeholder="Intenta con: xxxxxx@correo.com"
-              type="email"
-              pattern="^[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$"
-              invalid-feedback="Ingresa un email válido"
-              v-model="dataUser.user"
-              required
-            />
-          </div>
-          <div>
-            <label class="mt-3 form-label">Contraseña</label>
-            <input
-              class="form-control"
-              placeholder="Ingresa 123456"
-              type="password"
-              v-model="dataUser.password"
-              minlength="6"
-              title="Debe contener mínimo 6 caracteres"
-              required
-            />
-          </div>
-          <div class="form-check d-flex justify-content-center mt-3">
-            <input
-              class="form-check-input me-2"
-              type="checkbox"
-              value=""
-              onclick="btn.disabled = !checked"
-              required
-            />
-            <label class="form-check-label">
-              He leído y acepto los términos y condiciones de uso
-            </label>
-          </div>
-          <div class="text-center">
-            <button
-              @click="createUserNew"
-              name="btn"
-              disabled
-              class="btn btn-primary mt-3"
-            >
-              Crear Usuario
-            </button>
-          </div>
+      <div class="form-container">
+        <label class="form-label">Usuario</label>
+        <input
+          class="form-control"
+          placeholder="Ejemplo:: xxxxxx@correo.com"
+          type="email"
+          pattern="^[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$"
+          invalid-feedback="Ingresa un email válido"
+          v-model="dataUser.user"
+          required
+        />
+        <label class="mt-3 form-label">Contraseña</label>
+        <input
+          class="form-control"
+          placeholder="Ejemplo: 123456"
+          type="password"
+          v-model="dataUser.password"
+          minlength="6"
+          title="Debe contener mínimo 6 caracteres"
+          required
+        />
+        <div class="form-check d-flex justify-content-center mt-3">
+          <input
+            class="form-check-input me-2"
+            type="checkbox"
+            value=""
+            onclick="btn.disabled = !checked"
+            required
+          />
+          <label class="form-check-label">
+            He leído y acepto los términos y condiciones de uso
+          </label>
+        </div>
+        <div class="text-center">
+          <button
+            @submit.prevent="createUserNew()"
+            name="btn"
+            disabled
+            class="btn btn-primary mt-3"
+          >
+            Crear Usuario
+          </button>
         </div>
       </div>
     </div>
@@ -76,12 +65,16 @@ export default {
   methods: {
     ...mapActions(["createUser"]),
     ...mapMutations(["SET_USER"]),
-    async createUserNew() {
-      await this.createUser(this.dataUser);
+    createUserNew() {
+      this.createUser(this.dataUser);
       this.SET_USER(this.dataUser);
     },
   },
 };
 </script>
 
-<style></style>
+<style>
+.form-container {
+  max-width: 17rem;
+}
+</style>

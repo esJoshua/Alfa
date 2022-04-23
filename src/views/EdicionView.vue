@@ -60,6 +60,7 @@
               class="input-border"
               id="input-inscritos"
               v-model="inscritos"
+              :state="validateInscritos"
               type="number"
               required
             ></b-form-input>
@@ -117,14 +118,6 @@
               minlength="40"
               rows="4"
             ></b-form-textarea>
-          </b-form-group>
-          <b-form-group id="input-group-9" label="Fecha:" label-for="input-9">
-            <b-form-input
-              id="text-9"
-              v-model="form.fecha"
-              type="text"
-              required
-            ></b-form-input>
           </b-form-group>
           <div class="mt-3 text-center">
             <b-button type="submit" variant="success">ACTUALIZAR</b-button>
@@ -202,6 +195,9 @@ export default {
       await this.updateCurso(this.cursoEditado);
       this.$router.push("/admin");
     },
+    isValid() {
+      return this.form.inscritos <= this.form.cupos ? true : false;
+    },
   },
   computed: {
     ...mapState(["cursos"]),
@@ -273,6 +269,12 @@ export default {
       set(value) {
         this.form.descripcion = value;
       },
+    },
+    validateInscritos() {
+      if (this.form.inscritos) {
+        return this.isValid(this.form.inscritos);
+      }
+      return null;
     },
   },
 };

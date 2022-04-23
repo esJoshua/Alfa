@@ -15,7 +15,7 @@
           <b-form-input
             class="border-input shadow"
             id="input-nombre"
-            v-model.trim="curso.nombre"
+            v-model.trim="form.nombre"
             invalid-feedback="Campo requerido"
             type="text"
             placeholder="Nombre"
@@ -29,7 +29,7 @@
           <b-form-input
             class="border-input mt-3 shadow"
             id="input-imagen"
-            v-model="curso.imagen"
+            v-model="form.imagen"
             invalid-feedback="Campo requerido"
             placeholder="URL de la imagen del curso"
             title="URL de la imagen del curso"
@@ -41,7 +41,7 @@
           <b-form-input
             class="border-input mt-3 shadow"
             id="input-3"
-            v-model="curso.cupos"
+            v-model="form.cupos"
             invalid-feedback="Campo requerido"
             placeholder="Cupos del curso"
             title="Cupos del curso"
@@ -54,7 +54,8 @@
           <b-form-input
             class="border-input mt-3 shadow"
             id="input-4"
-            v-model="curso.inscritos"
+            v-model="form.inscritos"
+            :state="validateInscritos"
             invalid-feedback="Campo requerido"
             placeholder="Número de inscritos en el curso"
             title="Inscritos en el curso"
@@ -66,7 +67,7 @@
           <b-form-input
             class="border-input mt-3 shadow"
             id="input-5"
-            v-model="curso.duracion"
+            v-model="form.duracion"
             invalid-feedback="Campo requerido"
             placeholder="Duración del curso"
             title="Duración del curso"
@@ -79,7 +80,7 @@
           <b-form-input
             class="border-input mt-3 shadow"
             id="input-6"
-            v-model="curso.costo"
+            v-model.number="form.costo"
             invalid-feedback="Campo requerido"
             placeholder="Costo del curso"
             title="Costo del curso"
@@ -91,7 +92,7 @@
           <b-form-input
             class="border-input mt-3 shadow"
             id="text-7"
-            v-model.trim="curso.codigo"
+            v-model.trim="form.codigo"
             invalid-feedback="Campo requerido"
             placeholder="Código del curso"
             title="Código del curso"
@@ -103,7 +104,7 @@
           <b-form-textarea
             id="text-8"
             class="mt-3 shadow"
-            v-model="curso.descripcion"
+            v-model="form.descripcion"
             invalid-feedback="Campo requerido"
             placeholder="Descripción del curso"
             title="Descripción del curso"
@@ -136,7 +137,7 @@ export default {
   name: "ModalComp",
   data() {
     return {
-      curso: {
+      form: {
         nombre: "",
         imagen: "",
         cupos: null,
@@ -158,22 +159,32 @@ export default {
       },
     },
   },*/
+  computed: {
+    validateInscritos() {
+      if (this.form.inscritos) {
+        return this.isValid(this.form.inscritos);
+      }
+      return null;
+    },
+  },
   methods: {
     ...mapActions(["createCurso"]),
+    isValid() {
+      return this.form.inscritos <= this.form.cupos ? true : false;
+    },
     checkFormValidity() {
-      const valid = this.this.$bvModal.checkValidity("modal-add-curso");
-      this.inscritos = valid;
-      return valid;
+      const valid = this.$bvModal.checkValidity("modal-add-curso");
+      if (this.form.cupos >= this.form.inscritos) return valid;
     },
     resetModal() {
-      this.curso.nombre = "";
-      this.curso.imagen = "";
-      this.curso.cupos = null;
-      this.curso.inscritos = null;
-      this.curso.duracion = "";
-      this.curso.costo = null;
-      this.curso.codigo = "";
-      this.curso.descripcion = "";
+      this.form.nombre = "";
+      this.form.imagen = "";
+      this.form.cupos = null;
+      this.form.inscritos = null;
+      this.form.duracion = "";
+      this.form.costo = null;
+      this.form.codigo = "";
+      this.form.descripcion = "";
     },
     handleOk(bvModalEvt) {
       // Prevent modal from closing
@@ -183,22 +194,18 @@ export default {
     },
     handleSubmit() {
       // Exit when the form isn't valid
-      /* if (!this.checkFormValidity()) {
-        return; */
-      console.log("click");
-
-      // Push the name to submitted names
-      //this.submittedNames.push(this.name);
-      // Hide the modal manually
-      this.$nextTick(() => {
-        this.$bvModal.hide("modal-add-curso");
-      });
+      if (!this.checkFormValidity()) {
+        console.log("click");
+        this.$nextTick(() => {
+          this.$bvModal.hide("modal-add-curso");
+        });
+      }
     },
     hideModal() {
       this.$bvModal.hide("modal-add-curso");
     },
     async onSubmit() {
-      await this.createCurso(this.curso);
+      await this.createCurso(this.form);
       this.$router.push("/");
     },
   },
