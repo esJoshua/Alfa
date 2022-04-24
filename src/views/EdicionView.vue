@@ -282,7 +282,7 @@ export default {
 
 <style>
 .input-bg {
-  background-color: rgba(5, 5, 5, 0.8);
+  background-color: rgba(5, 5, 5, 0.9);
 }
 .input-border {
   border-block-start-style: none;

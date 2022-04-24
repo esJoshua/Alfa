@@ -1,7 +1,8 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import HomeView from "../views/HomeView.vue";
-import store from "@/store/index.js";
+//import store from "@/store/index.js";
+import { getAuth } from "firebase/auth";
 
 Vue.use(VueRouter);
 
@@ -54,9 +55,10 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   //const isAuthenticated = localStorage.getItem("loggedIn");
-  const isAuthenticated = store.state.loggedIn;
+  const auth = getAuth();
+  const user = auth.currentUser;
   console.log("Pag. Protegida:", to.meta.requiresAuth);
-  if (to.meta.requiresAuth && !isAuthenticated) next({ name: "login" });
+  if (to.meta.requiresAuth && !user) next({ name: "login" });
   else next();
 });
 

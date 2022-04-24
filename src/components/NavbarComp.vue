@@ -8,7 +8,7 @@
       <b-collapse id="nav-collapse" is-nav>
         <!-- Right aligned nav items -->
         <b-navbar-nav tab class="margin">
-          <template v-if="loggedIn">
+          <template v-if="userState">
             <b-nav-item exact exact-active-class="active" to="/"
               >Home</b-nav-item
             >
@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import { mapActions, mapState } from "vuex";
+import { mapActions, mapState, mapGetters } from "vuex";
 
 export default {
   name: "NavbarComp",
@@ -50,7 +50,8 @@ export default {
     },
   },
   computed: {
-    ...mapState(["loggedIn", "user"]),
+    ...mapState(["user"]),
+    ...mapGetters(["userState"]),
   },
 };
 </script>

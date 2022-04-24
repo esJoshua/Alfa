@@ -1,5 +1,8 @@
 <template>
-  <form class="container mt-4 text-white">
+  <form
+    class="container mt-4 text-white was-validated"
+    @submit.prevent="createUserNew"
+  >
     <div class="row justify-content-center">
       <div class="form-container">
         <label class="form-label">Usuario</label>
@@ -22,23 +25,33 @@
           title="Debe contener mínimo 6 caracteres"
           required
         />
-        <div class="form-check d-flex justify-content-center mt-3">
+        <label class="mt-3 form-label">Repetir Contraseña</label>
+        <input
+          class="form-control"
+          placeholder="Ejemplo: 123456"
+          type="password"
+          v-model="password2"
+          minlength="6"
+          title="Debe contener mínimo 6 caracteres"
+          required
+        />
+        <div class="form-check d-flex justify-content-center mt-3 novalidate">
           <input
             class="form-check-input me-2"
             type="checkbox"
+            id="checkbox"
             value=""
-            onclick="btn.disabled = !checked"
             required
           />
-          <label class="form-check-label">
+          <label class="form-check-label" for="checkbox">
             He leído y acepto los términos y condiciones de uso
           </label>
         </div>
         <div class="text-center">
           <button
-            @submit.prevent="createUserNew()"
+            type="submit"
             name="btn"
-            disabled
+            :disabled="!deactivate"
             class="btn btn-primary mt-3"
           >
             Crear Usuario
@@ -50,7 +63,7 @@
 </template>
 
 <script>
-import { mapActions, mapMutations } from "vuex";
+import { mapActions } from "vuex";
 
 export default {
   name: "RegistroView",
@@ -60,14 +73,22 @@ export default {
         user: "",
         password: "",
       },
+      password2: "",
     };
   },
   methods: {
     ...mapActions(["createUser"]),
-    ...mapMutations(["SET_USER"]),
     createUserNew() {
       this.createUser(this.dataUser);
-      this.SET_USER(this.dataUser);
+    },
+  },
+  computed: {
+    deactivate() {
+      return (
+        this.dataUser.password === this.password2 &&
+        this.dataUser.password.trim() !== "" &&
+        this.dataUser.password.length > 5
+      );
     },
   },
 };

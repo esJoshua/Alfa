@@ -18,20 +18,15 @@ import {
 } from "firebase/firestore";
 import { db } from "@/helpers/firebase.js";
 
-//onAuthStateChanged,
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    user: {},
-    loggedIn: false,
+    user: null,
     cursos: [],
     loadSpinner: false,
   },
   mutations: {
-    SET_LOG(state, payload) {
-      state.loggedIn = payload;
-    },
     SET_USER(state, payload) {
       state.user = payload;
     },
@@ -43,6 +38,13 @@ export default new Vuex.Store({
     },
   },
   getters: {
+    userState(state) {
+      if (state.user === null) {
+        return false;
+      } else {
+        return true;
+      }
+    },
     totalCursos(state) {
       return state.cursos.length;
     },
@@ -97,10 +99,15 @@ export default new Vuex.Store({
           user,
           password
         );
-        commit("SET_LOG", true);
+        const newUser = {
+          user: userCredential.user.email,
+          uid: userCredential.user.uid,
+        };
+        commit("SET_USER", newUser);
         //localStorage.setItem("loggedIn", "true");
         router.push("/");
         console.log(userCredential.user);
+        console.log(newUser);
       } catch (error) {
         if (error.code === "auth/invalid-email")
           alert("Escribe un correo valido");
@@ -117,10 +124,14 @@ export default new Vuex.Store({
           payload.user,
           payload.password
         );
-        commit("SET_LOG", true);
+        const user = {
+          user: userCredential.user.email,
+          uid: userCredential.user.uid,
+        };
+        commit("SET_USER", user);
         //localStorage.setItem("loggedIn", "true");
         router.push("/");
-        console.log(userCredential.user.email);
+        console.log(userCredential.user);
       } catch (error) {
         if (error.code === "auth/user-not-found")
           alert("Usuario no encontrado");
@@ -133,7 +144,7 @@ export default new Vuex.Store({
       const auth = getAuth();
       try {
         const userCredential = await signOut(auth);
-        commit("SET_LOG", false);
+        commit("SET_USER", null);
         //localStorage.removeItem("loggedIn");
         router.push("/login");
         console.log(
@@ -143,6 +154,33 @@ export default new Vuex.Store({
         console.error(error);
       }
     },
+
+    detectUser({ commit }, usuario) {
+      console.log(usuario);
+      commit("SET_USER", usuario);
+    },
+
+    /* async authStateChanged({ commit }) {
+      const auth = getAuth();
+      try {
+        const userCredential = await onAuthStateChanged(auth, (user) => {
+          if (user) {
+            const userDetected = {
+              user: user.email,
+              uid: user.uid,
+            };
+            console.log(userCredential.user);
+            commit("SET_LOG", true);
+            commit("SET_USER", userDetected);
+          } else {
+            commit("SET_LOG", false);
+            commit("SET_USER", user);
+          }
+        });
+      } catch (error) {
+        console.error(error);
+      }
+    }, */
 
     async getCollectionCursos({ commit }) {
       commit("SET_LOAD_SPINNER", true);

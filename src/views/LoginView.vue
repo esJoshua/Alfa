@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import { mapActions, mapMutations } from "vuex";
+import { mapActions } from "vuex";
 export default {
   name: "LoginView",
   data() {
@@ -53,11 +53,9 @@ export default {
     };
   },
   methods: {
-    ...mapMutations(["SET_USER"]),
     ...mapActions(["loginWithFirebase"]),
     async login() {
       await this.loginWithFirebase(this.dataUser);
-      this.SET_USER(this.dataUser);
     },
   },
 };
