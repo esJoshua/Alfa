@@ -1,9 +1,9 @@
 <template>
   <b-container class="mt-4">
     <Modal />
-    <b-row>
-      <b-col>
-        <h1 class="text-center text-white">Administración</h1>
+    <b-row class="justify-content-center">
+      <b-col class="title-container">
+        <h1 class="text-center">Administración</h1>
       </b-col>
     </b-row>
     <b-row>
@@ -18,8 +18,8 @@
           role="status"
           aria-hidden="true"
         >
-          <div class="spinner-border m-3"></div>
-          <div>Cargando contenido...</div>
+          <div class="spinner-border m-3" style="color: #4ff149"></div>
+          <div style="color: #4ff149">Cargando contenido...</div>
         </div>
       </template>
       <b-col class="mt-3 g-0">
@@ -101,5 +101,14 @@ export default {
 }
 .resume-bg {
   background-color: rgba(5, 5, 5, 0.8);
+}
+.title-container {
+  max-width: 20rem;
+}
+h1 {
+  color: white;
+  border: 2px solid #1adb6ac5;
+  box-shadow: 0 0 70px 15px #1adb6ac5;
+  background-color: rgb(0, 0, 0, 2);
 }
 </style>

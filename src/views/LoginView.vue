@@ -64,5 +64,6 @@ export default {
 <style>
 .form-container {
   max-width: 17rem;
+  background-color: rgba(5, 5, 5, 0.9);
 }
 </style>

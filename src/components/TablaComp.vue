@@ -72,7 +72,6 @@ export default {
   methods: {
     ...mapActions(["deleteCurso"]),
     deleteCursoBtn(curso) {
-      console.log("click");
       this.$bvModal
         .msgBoxConfirm("Confirme la eliminación del curso.", {
           title: "!! Advertencia !!",
@@ -87,8 +86,8 @@ export default {
         })
         .then((value) => {
           this.confirmacion = value;
+          //console.log(this.confirmacion);
           if (this.confirmacion === true) this.deleteCurso(curso);
-          console.log(this.confirmacion);
         });
     },
   },

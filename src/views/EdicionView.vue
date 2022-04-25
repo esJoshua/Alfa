@@ -4,7 +4,7 @@
   >
     <b-row>
       <b-col>
-        <h1>Editando el curso:</h1>
+        <h1>Editando el curso: {{ nombre }}</h1>
       </b-col>
     </b-row>
     <b-row>
@@ -60,10 +60,16 @@
               class="input-border"
               id="input-inscritos"
               v-model="inscritos"
-              :state="validateInscritos"
+              :state="validatedInscritos"
               type="number"
               required
             ></b-form-input>
+            <template>
+              <small v-if="!validatedInscritos && inscritos !== null"
+                >El número de inscritos no puede ser mayor al número de cúpos
+                disponibles</small
+              >
+            </template>
           </b-form-group>
           <b-form-group
             id="input-group-5"
@@ -119,13 +125,28 @@
               rows="4"
             ></b-form-textarea>
           </b-form-group>
+          <b-form-group
+            id="input-group-9"
+            label="Estado del curso:"
+            label-for="input-estado"
+          >
+            <div class="form-check form-switch">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                role="switch"
+                id="flexSwitchCheckDefault"
+                v-model="estado"
+              />
+              <label class="form-check-label" for="flexSwitchCheckDefault"
+                >Terminado</label
+              >
+            </div>
+          </b-form-group>
           <div class="mt-3 text-center">
             <b-button type="submit" variant="success">ACTUALIZAR</b-button>
             <b-button class="m-3" type="reset" variant="danger"
               >LIMPIAR FORMULARIO</b-button
-            >
-            <b-button class="m-3" type="button" variant="warning">
-              LIMPIAR VALIDACIÓN</b-button
             >
             <b-button to="/admin" type="button" variant="primary">
               REGRESAR
@@ -151,6 +172,7 @@ export default {
         duracion: "",
         costo: null,
         codigo: "",
+        estado: false,
         descripcion: "",
       },
       cursoEditado: {
@@ -162,6 +184,7 @@ export default {
         costo: null,
         codigo: "",
         descripcion: "",
+        estado: false,
         idCurso: "",
       },
     };
@@ -177,35 +200,48 @@ export default {
       this.costo = null;
       this.codigo = "";
       this.descripcion = "";
+      this.estado = false;
     },
     async onSubmit() {
-      this.cursoEditado.nombre = this.form.nombre || this.editCurso.nombre;
-      this.cursoEditado.imagen = this.form.URLimg || this.editCurso.imagen;
-      this.cursoEditado.cupos = this.form.cupos || this.editCurso.cupos;
-      this.cursoEditado.inscritos =
-        this.form.inscritos || this.editCurso.inscritos;
-      this.cursoEditado.duracion =
-        this.form.duracion || this.editCurso.duracion;
-      this.cursoEditado.costo = this.form.costo || this.editCurso.costo;
-      this.cursoEditado.codigo = this.form.codigo || this.editCurso.codigo;
-      this.cursoEditado.descripcion =
-        this.form.descripcion || this.editCurso.descripcion;
-      this.cursoEditado.idCurso = this.editCurso.idCurso;
-      //console.log(this.cursoEditado);
-      await this.updateCurso(this.cursoEditado);
-      this.$router.push("/admin");
+      if (this.validatedInscritos) {
+        this.cursoEditado.nombre = this.form.nombre || this.editCurso.nombre;
+        this.cursoEditado.imagen = this.form.URLimg || this.editCurso.imagen;
+        this.cursoEditado.cupos = this.form.cupos || this.editCurso.cupos;
+        this.cursoEditado.inscritos =
+          this.form.inscritos || this.editCurso.inscritos;
+        this.cursoEditado.duracion =
+          this.form.duracion || this.editCurso.duracion;
+        this.cursoEditado.costo = this.form.costo || this.editCurso.costo;
+        this.cursoEditado.codigo = this.form.codigo || this.editCurso.codigo;
+        this.cursoEditado.descripcion =
+          this.form.descripcion || this.editCurso.descripcion;
+        this.cursoEditado.estado = this.form.estado || this.editCurso.estado;
+        this.cursoEditado.idCurso = this.editCurso.idCurso;
+        //console.log(this.cursoEditado);
+        await this.updateCurso(this.cursoEditado);
+        this.$router.push("/admin");
+      }
     },
     isValid() {
       return this.form.inscritos <= this.form.cupos ? true : false;
     },
   },
+
   computed: {
     ...mapState(["cursos"]),
     editCurso() {
+      console.log(this.form.estado);
       return this.cursos.find(
         (curso) => curso.codigo === this.$route.params.id
       );
     },
+    validatedInscritos() {
+      if (this.inscritos) {
+        return this.isValid(this.inscritos);
+      }
+      return null;
+    },
+
     nombre: {
       get() {
         return this.editCurso.nombre;
@@ -270,11 +306,13 @@ export default {
         this.form.descripcion = value;
       },
     },
-    validateInscritos() {
-      if (this.form.inscritos) {
-        return this.isValid(this.form.inscritos);
-      }
-      return null;
+    estado: {
+      get() {
+        return this.editCurso.estado;
+      },
+      set(value) {
+        this.form.estado = value;
+      },
     },
   },
 };

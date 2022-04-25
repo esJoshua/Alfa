@@ -4,13 +4,12 @@
       id="modal-add-curso"
       ref="modal"
       size="md"
-      title="Agregando Curso"
+      title="Datos del Curso"
       @show="resetModal"
       @hidden="resetModal"
-      @ok="handleOk"
       hide-footer
     >
-      <form ref="form" @submit.stop.prevent="onSubmit">
+      <form ref="form" @submit.prevent="onSubmit">
         <b-form-group id="input-group-1" label-for="input-nombre">
           <b-form-input
             class="border-input shadow"
@@ -41,7 +40,7 @@
           <b-form-input
             class="border-input mt-3 shadow"
             id="input-3"
-            v-model="form.cupos"
+            v-model.number="form.cupos"
             invalid-feedback="Campo requerido"
             placeholder="Cupos del curso"
             title="Cupos del curso"
@@ -54,14 +53,20 @@
           <b-form-input
             class="border-input mt-3 shadow"
             id="input-4"
-            v-model="form.inscritos"
-            :state="validateInscritos"
+            v-model.number="form.inscritos"
+            :state="validatedInscritos"
             invalid-feedback="Campo requerido"
             placeholder="Número de inscritos en el curso"
             title="Inscritos en el curso"
             type="number"
             required
           ></b-form-input>
+          <template>
+            <small v-if="!validatedInscritos && form.inscritos !== null"
+              >El número de inscritos no puede ser mayor al número de cúpos
+              disponibles</small
+            >
+          </template>
         </b-form-group>
         <b-form-group id="input-group-5" label-for="input-duracion">
           <b-form-input
@@ -113,14 +118,30 @@
             rows="4"
           ></b-form-textarea>
         </b-form-group>
+        <b-form-group
+          id="input-group-9"
+          label="Estado del curso:"
+          label-for="input-estado"
+          class="mt-3"
+        >
+          <div class="form-check form-switch">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              role="switch"
+              id="flexSwitchCheckDefault"
+              v-model="form.estado"
+            />
+            <label class="form-check-label" for="flexSwitchCheckDefault"
+              >Terminado</label
+            >
+          </div>
+        </b-form-group>
 
         <div class="mt-3 text-center">
           <b-button type="submit" variant="outline-success">CREAR</b-button>
           <b-button class="m-3" type="reset" variant="outline-danger"
             >LIMPIAR FORMULARIO</b-button
-          >
-          <b-button class="m-3" type="button" variant="outline-warning">
-            LIMPIAR VALIDACIÓN</b-button
           >
           <b-button @click="hideModal" type="button" variant="outline-primary">
             REGRESAR
@@ -145,22 +166,14 @@ export default {
         duracion: "",
         costo: null,
         codigo: "",
+        estado: false,
         descripcion: "",
       },
+      confirmacion: "",
     };
   },
-  /* computed: {
-    cursoInscritos: {
-      get() {
-        return this.editCurso.inscritos;
-      },
-      set(value) {
-        this.form.inscritos = Number(value);
-      },
-    },
-  },*/
   computed: {
-    validateInscritos() {
+    validatedInscritos() {
       if (this.form.inscritos) {
         return this.isValid(this.form.inscritos);
       }
@@ -168,14 +181,10 @@ export default {
     },
   },
   methods: {
-    ...mapActions(["createCurso"]),
     isValid() {
       return this.form.inscritos <= this.form.cupos ? true : false;
     },
-    checkFormValidity() {
-      const valid = this.$bvModal.checkValidity("modal-add-curso");
-      if (this.form.cupos >= this.form.inscritos) return valid;
-    },
+    ...mapActions(["createCurso"]),
     resetModal() {
       this.form.nombre = "";
       this.form.imagen = "";
@@ -184,29 +193,33 @@ export default {
       this.form.duracion = "";
       this.form.costo = null;
       this.form.codigo = "";
+      this.form.estado = false;
       this.form.descripcion = "";
-    },
-    handleOk(bvModalEvt) {
-      // Prevent modal from closing
-      bvModalEvt.preventDefault();
-      // Trigger submit handler
-      this.handleSubmit();
-    },
-    handleSubmit() {
-      // Exit when the form isn't valid
-      if (!this.checkFormValidity()) {
-        console.log("click");
-        this.$nextTick(() => {
-          this.$bvModal.hide("modal-add-curso");
-        });
-      }
     },
     hideModal() {
       this.$bvModal.hide("modal-add-curso");
     },
-    async onSubmit() {
-      await this.createCurso(this.form);
-      this.$router.push("/");
+    onSubmit() {
+      if (this.validatedInscritos) {
+        this.$bvModal
+          .msgBoxConfirm("Confirme la creación del curso.", {
+            title: "!! Confirmación !!",
+            okVariant: "success",
+            okTitle: "Sí, Crear",
+            cancelTitle: "Cancelar",
+            footerClass: "p-2",
+            hideHeaderClose: false,
+            centered: true,
+            headerBgVariant: "success",
+            bodyTextVariant: "success",
+            headerTextVariant: "light",
+          })
+          .then((value) => {
+            this.confirmacion = value;
+            if (this.confirmacion === true) this.createCurso(this.form);
+            this.$router.push("/");
+          });
+      }
     },
   },
 };

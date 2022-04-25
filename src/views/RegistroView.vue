@@ -1,6 +1,7 @@
 <template>
   <form
-    class="container mt-4 text-white was-validated"
+    class="container mt-4 text-white"
+    :class="{ 'was-validated': deactivate }"
     @submit.prevent="createUserNew"
   >
     <div class="row justify-content-center">
@@ -22,9 +23,11 @@
           type="password"
           v-model="dataUser.password"
           minlength="6"
-          title="Debe contener mínimo 6 caracteres"
           required
         />
+        <template v-if="dataUser.password.length < 6">
+          <small>Debe contener mínimo 6 caracteres</small>
+        </template>
         <label class="mt-3 form-label">Repetir Contraseña</label>
         <input
           class="form-control"
@@ -35,6 +38,9 @@
           title="Debe contener mínimo 6 caracteres"
           required
         />
+        <template v-if="dataUser.password !== password2">
+          <small>Contraseña no coincide</small>
+        </template>
         <div class="form-check d-flex justify-content-center mt-3 novalidate">
           <input
             class="form-check-input me-2"
@@ -84,6 +90,7 @@ export default {
   },
   computed: {
     deactivate() {
+      console.log(this.dataUser.password, this.password2);
       return (
         this.dataUser.password === this.password2 &&
         this.dataUser.password.trim() !== "" &&
@@ -93,9 +100,9 @@ export default {
   },
 };
 </script>
-
 <style>
 .form-container {
   max-width: 17rem;
+  background-color: rgba(5, 5, 5, 0.9);
 }
 </style>

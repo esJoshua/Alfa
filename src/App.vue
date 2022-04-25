@@ -27,11 +27,7 @@ export default {
   },
 };
 </script>
-<style lang="scss">
-* {
-  padding: 0;
-  margin: 0;
-}
+<style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   min-height: 100vh;
@@ -40,5 +36,11 @@ export default {
 }
 .views-container {
   padding-bottom: 8rem;
+}
+h1 {
+  color: white;
+  border: 2px solid #1adb6ac5;
+  box-shadow: 0 0 70px 15px #1adb6ac5;
+  background-color: rgb(0, 0, 0, 2);
 }
 </style>

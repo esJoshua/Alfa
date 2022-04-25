@@ -6,6 +6,7 @@ import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   signOut,
+  onAuthStateChanged,
 } from "firebase/auth";
 import {
   collection,
@@ -15,6 +16,7 @@ import {
   deleteDoc,
   onSnapshot,
   query,
+  serverTimestamp,
 } from "firebase/firestore";
 import { db } from "@/helpers/firebase.js";
 
@@ -154,33 +156,25 @@ export default new Vuex.Store({
         console.error(error);
       }
     },
-
-    detectUser({ commit }, usuario) {
-      console.log(usuario);
-      commit("SET_USER", usuario);
-    },
-
-    /* async authStateChanged({ commit }) {
+    authStateChanged({ commit }) {
       const auth = getAuth();
       try {
-        const userCredential = await onAuthStateChanged(auth, (user) => {
+        onAuthStateChanged(auth, (user) => {
           if (user) {
             const userDetected = {
               user: user.email,
               uid: user.uid,
             };
-            console.log(userCredential.user);
-            commit("SET_LOG", true);
+            //console.log(user);
             commit("SET_USER", userDetected);
           } else {
-            commit("SET_LOG", false);
             commit("SET_USER", user);
           }
         });
       } catch (error) {
         console.error(error);
       }
-    }, */
+    },
 
     async getCollectionCursos({ commit }) {
       commit("SET_LOAD_SPINNER", true);
@@ -210,6 +204,8 @@ export default new Vuex.Store({
       try {
         const docRef = doc(db, "cursos", payload.idCurso);
         await updateDoc(docRef, payload);
+        const timestamp = serverTimestamp();
+        console.log(timestamp);
         console.log("Ha sido Actualizado el curso con ID: ", docRef.id);
         alert("Ha sido Actualizado el curso con codigo: " + payload.codigo);
       } catch (error) {
@@ -227,10 +223,11 @@ export default new Vuex.Store({
           costo: payload.costo,
           codigo: payload.codigo,
           descripcion: payload.descripcion,
+          estado: payload.estado,
         });
         //console.log(payload);
         console.log("Ha sido Creado el curso con ID: ", docRef.id);
-        alert("Ha sido Creado el curso con codigo: " + payload.codigo);
+        //alert("Ha sido Creado el curso con codigo: " + payload.codigo);
       } catch (error) {
         console.error(error);
       }
@@ -240,7 +237,7 @@ export default new Vuex.Store({
       try {
         await deleteDoc(doc(db, "cursos", payload.idCurso));
         console.log("Ha sido Eliminado el curso con ID: ", payload.idCurso);
-        alert("Ha sido Eliminado el curso con codigo: " + payload.codigo);
+        //alert("Ha sido Eliminado el curso con codigo: " + payload.codigo);
       } catch (error) {
         console.error(error);
       }
