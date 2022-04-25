@@ -28,6 +28,10 @@ export default {
 };
 </script>
 <style>
+* {
+  margin: 0;
+  padding: 0;
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   min-height: 100vh;
@@ -36,6 +40,11 @@ export default {
 }
 .views-container {
   padding-bottom: 8rem;
+}
+#title-container {
+  max-width: 20rem;
+  margin-left: auto;
+  margin-right: auto;
 }
 h1 {
   color: white;

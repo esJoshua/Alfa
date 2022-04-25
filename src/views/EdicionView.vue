@@ -138,11 +138,36 @@
                 id="flexSwitchCheckDefault"
                 v-model="estado"
               />
-              <label class="form-check-label" for="flexSwitchCheckDefault"
+              <label
+                v-if="stateEstado"
+                class="form-check-label"
+                for="flexSwitchCheckDefault"
                 >Terminado</label
+              >
+              <label
+                v-else
+                class="form-check-label"
+                for="flexSwitchCheckDefault"
+                >Activo</label
               >
             </div>
           </b-form-group>
+          <div>
+            <span
+              >Fecha de creación del curso:
+              <small>{{
+                new Date(editCurso.fecha.seconds * 1000)
+                  .toLocaleString()
+                  .split(",")[0]
+              }}</small>
+            </span>
+          </div>
+          <template v-if="editCurso.fechaAct">
+            <span
+              >Última actualizacón:
+              <small>{{ new Date(editCurso.fechaAct.seconds * 1000) }}</small>
+            </span>
+          </template>
           <div class="mt-3 text-center">
             <b-button type="submit" variant="success">ACTUALIZAR</b-button>
             <b-button class="m-3" type="reset" variant="danger"
@@ -167,12 +192,12 @@ export default {
       form: {
         nombre: "",
         URLimg: "",
-        cupos: null,
-        inscritos: null,
+        cupos: 0,
+        inscritos: 0,
         duracion: "",
         costo: null,
         codigo: "",
-        estado: false,
+        estado: null,
         descripcion: "",
       },
       cursoEditado: {
@@ -203,6 +228,7 @@ export default {
       this.estado = false;
     },
     async onSubmit() {
+      //console.log(this.validatedInscritos);
       if (this.validatedInscritos) {
         this.cursoEditado.nombre = this.form.nombre || this.editCurso.nombre;
         this.cursoEditado.imagen = this.form.URLimg || this.editCurso.imagen;
@@ -215,9 +241,12 @@ export default {
         this.cursoEditado.codigo = this.form.codigo || this.editCurso.codigo;
         this.cursoEditado.descripcion =
           this.form.descripcion || this.editCurso.descripcion;
-        this.cursoEditado.estado = this.form.estado || this.editCurso.estado;
+        this.cursoEditado.estado =
+          this.form.estado !== this.editCurso.estado &&
+          this.form.estado !== null
+            ? this.form.estado
+            : this.editCurso.estado;
         this.cursoEditado.idCurso = this.editCurso.idCurso;
-        //console.log(this.cursoEditado);
         await this.updateCurso(this.cursoEditado);
         this.$router.push("/admin");
       }
@@ -226,22 +255,25 @@ export default {
       return this.form.inscritos <= this.form.cupos ? true : false;
     },
   },
-
   computed: {
     ...mapState(["cursos"]),
     editCurso() {
-      console.log(this.form.estado);
       return this.cursos.find(
         (curso) => curso.codigo === this.$route.params.id
       );
     },
     validatedInscritos() {
-      if (this.inscritos) {
+      if (this.inscritos >= 0) {
         return this.isValid(this.inscritos);
       }
       return null;
     },
-
+    stateEstado() {
+      return this.form.estado !== this.editCurso.estado &&
+        this.form.estado !== null
+        ? this.form.estado
+        : this.editCurso.estado;
+    },
     nombre: {
       get() {
         return this.editCurso.nombre;
@@ -311,7 +343,7 @@ export default {
         return this.editCurso.estado;
       },
       set(value) {
-        this.form.estado = value;
+        this.form.estado = Boolean(value);
       },
     },
   },

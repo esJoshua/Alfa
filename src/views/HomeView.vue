@@ -1,7 +1,7 @@
 <template>
   <b-container class="mt-4">
-    <b-row class="justify-content-center">
-      <b-col class="title-container">
+    <b-row id="title-container">
+      <b-col>
         <h1 class="text-center">Lista de Cursos</h1>
       </b-col>
     </b-row>
@@ -32,14 +32,3 @@ export default {
   },
 };
 </script>
-<style>
-.title-container {
-  max-width: 20rem;
-}
-h1 {
-  color: white;
-  border: 2px solid #1adb6ac5;
-  box-shadow: 0 0 70px 15px #1adb6ac5;
-  background-color: rgb(0, 0, 0, 2);
-}
-</style>

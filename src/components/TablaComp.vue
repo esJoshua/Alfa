@@ -27,7 +27,7 @@
           <b-td>{{ curso.inscritos }}</b-td>
           <b-td>{{ curso.duracion }}</b-td>
           <b-td>
-            <span class="badge rounded-pill bg-info p-2"
+            <span class="badge rounded-pill bg-info p-2 text-dark"
               >${{ curso.costo.toLocaleString("DE-de") }}</span
             >
           </b-td>
@@ -40,7 +40,11 @@
             >
           </b-td>
           <b-td>
-            <span class="badge rounded-pill bg-success p-2">Fecha</span>
+            <span class="badge rounded-pill bg-success p-2">{{
+              new Date(curso.fecha.seconds * 1000)
+                .toLocaleString()
+                .split(",")[0]
+            }}</span>
           </b-td>
           <b-td>
             <RouterLink class="cursor" :to="`/edicion/${curso.codigo}`"

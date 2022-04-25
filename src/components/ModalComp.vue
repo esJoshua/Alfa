@@ -132,8 +132,14 @@
               id="flexSwitchCheckDefault"
               v-model="form.estado"
             />
-            <label class="form-check-label" for="flexSwitchCheckDefault"
+            <label
+              v-if="form.estado"
+              class="form-check-label"
+              for="flexSwitchCheckDefault"
               >Terminado</label
+            >
+            <label v-else class="form-check-label" for="flexSwitchCheckDefault"
+              >Activo</label
             >
           </div>
         </b-form-group>

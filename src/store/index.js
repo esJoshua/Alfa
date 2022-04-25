@@ -190,6 +190,7 @@ export default new Vuex.Store({
               };
               cursos.push(curso);
             });
+            console.log(cursos);
             commit("SET_DATA_CURSOS", cursos);
             commit("SET_LOAD_SPINNER", false);
           });
@@ -200,12 +201,12 @@ export default new Vuex.Store({
     },
 
     async updateCurso(_, payload) {
-      console.log(payload);
       try {
         const docRef = doc(db, "cursos", payload.idCurso);
-        await updateDoc(docRef, payload);
-        const timestamp = serverTimestamp();
-        console.log(timestamp);
+        await updateDoc(docRef, {
+          ...payload,
+          fechaAct: serverTimestamp(),
+        });
         console.log("Ha sido Actualizado el curso con ID: ", docRef.id);
         alert("Ha sido Actualizado el curso con codigo: " + payload.codigo);
       } catch (error) {
@@ -224,10 +225,9 @@ export default new Vuex.Store({
           codigo: payload.codigo,
           descripcion: payload.descripcion,
           estado: payload.estado,
+          fecha: serverTimestamp(),
         });
-        //console.log(payload);
         console.log("Ha sido Creado el curso con ID: ", docRef.id);
-        //alert("Ha sido Creado el curso con codigo: " + payload.codigo);
       } catch (error) {
         console.error(error);
       }
@@ -237,7 +237,6 @@ export default new Vuex.Store({
       try {
         await deleteDoc(doc(db, "cursos", payload.idCurso));
         console.log("Ha sido Eliminado el curso con ID: ", payload.idCurso);
-        //alert("Ha sido Eliminado el curso con codigo: " + payload.codigo);
       } catch (error) {
         console.error(error);
       }
