@@ -6,7 +6,6 @@ import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   signOut,
-  onAuthStateChanged,
 } from "firebase/auth";
 import {
   collection,
@@ -60,16 +59,16 @@ export default new Vuex.Store({
     },
     totalInscritos(state) {
       return state.cursos.reduce((accumulator, curso) => {
-        //return state.cursos.reduce((accumulator, curso, i) => {
         accumulator = accumulator + Number(curso.inscritos);
+        //return state.cursos.reduce((accumulator, curso, i) => {
         //console.log("iteración", 1 + i++, accumulator);
         return accumulator;
       }, 0);
     },
     cuposRestantes(state) {
       return state.cursos.reduce((accumulator, curso) => {
-        //return state.cursos.reduce((accumulator, curso, i) => {
         accumulator = accumulator + Number(curso.cupos - curso.inscritos);
+        //return state.cursos.reduce((accumulator, curso, i) => {
         //console.log("iteración", 1 + i++, curso.cupos - curso.inscritos);
         return accumulator;
       }, 0);
@@ -91,7 +90,6 @@ export default new Vuex.Store({
   },
   actions: {
     async createUser({ commit }, payload) {
-      //async createUser(payload) {
       const user = payload.user;
       const password = payload.password;
       const auth = getAuth();
@@ -156,7 +154,10 @@ export default new Vuex.Store({
         console.error(error);
       }
     },
-    authStateChanged({ commit }) {
+    /* Comportamiento indeseado al refrescar la página, entraba al view del login y luego es que 
+    se actualizaba el usuario logeado pero ya estaba dentro del view del login...
+
+      authStateChanged({ commit }) {
       const auth = getAuth();
       try {
         onAuthStateChanged(auth, (user) => {
@@ -174,6 +175,9 @@ export default new Vuex.Store({
       } catch (error) {
         console.error(error);
       }
+    }, */
+    authState({ commit }, payload) {
+      commit("SET_USER", payload);
     },
 
     async getCollectionCursos({ commit }) {
