@@ -1,6 +1,6 @@
 # cursos-alfaweb
 
-https://alfa-web1.web.app/login
+https://alfa-web1.web.app
 
 ## Project setup
 ```
