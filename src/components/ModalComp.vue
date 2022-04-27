@@ -28,12 +28,13 @@
           <b-form-input
             class="border-input mt-3 shadow"
             id="input-imagen"
-            v-model="form.imagen"
+            v-model="defaultImg"
             invalid-feedback="Campo requerido"
             placeholder="URL de la imagen del curso"
             title="URL de la imagen del curso"
             required
           ></b-form-input>
+          <small>Esta es una Url de imagen random de ejemplo</small>
         </b-form-group>
 
         <b-form-group id="input-group-3" label-for="input-curso">
@@ -53,7 +54,7 @@
           <b-form-input
             class="border-input mt-3 shadow"
             id="input-4"
-            v-model.number="form.inscritos"
+            v-model="form.inscritos"
             :state="validatedInscritos"
             invalid-feedback="Campo requerido"
             placeholder="Número de inscritos en el curso"
@@ -62,7 +63,12 @@
             required
           ></b-form-input>
           <template>
-            <small v-if="!validatedInscritos && form.inscritos !== null"
+            <small
+              v-if="
+                !validatedInscritos &&
+                form.inscritos !== null &&
+                form.inscritos !== ''
+              "
               >El número de inscritos no puede ser mayor al número de cúpos
               disponibles</small
             >
@@ -145,7 +151,9 @@
         </b-form-group>
 
         <div class="mt-3 text-center">
-          <b-button type="submit" variant="outline-success">CREAR</b-button>
+          <b-button type="submit" variant="outline-success"
+            >AGREGAR CURSO</b-button
+          >
           <b-button class="m-3" type="reset" variant="outline-danger"
             >LIMPIAR FORMULARIO</b-button
           >
@@ -174,6 +182,7 @@ export default {
         codigo: "",
         estado: false,
         descripcion: "",
+        imgUrlDefault: "http://placeimg.com/640/480/tech",
       },
       confirmacion: "",
     };
@@ -184,6 +193,14 @@ export default {
         return this.isValid(this.form.inscritos);
       }
       return null;
+    },
+    defaultImg: {
+      get() {
+        return this.form.imgUrlDefault;
+      },
+      set(value) {
+        this.form.imagen = value;
+      },
     },
   },
   methods: {
@@ -211,7 +228,7 @@ export default {
           .msgBoxConfirm("Confirme la creación del curso.", {
             title: "!! Confirmación !!",
             okVariant: "success",
-            okTitle: "Sí, Crear",
+            okTitle: "Sí, Agregar",
             cancelTitle: "Cancelar",
             footerClass: "p-2",
             hideHeaderClose: false,

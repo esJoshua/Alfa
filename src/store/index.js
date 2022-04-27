@@ -221,9 +221,9 @@ export default new Vuex.Store({
       try {
         const docRef = await addDoc(collection(db, "cursos"), {
           nombre: payload.nombre,
-          imagen: payload.imagen,
+          imagen: payload.imgUrlDefault || payload.imagen,
           cupos: payload.cupos,
-          inscritos: payload.inscritos,
+          inscritos: Number(payload.inscritos),
           duracion: payload.duracion,
           costo: payload.costo,
           codigo: payload.codigo,

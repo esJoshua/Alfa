@@ -191,7 +191,7 @@ export default {
     return {
       form: {
         nombre: "",
-        URLimg: "",
+        imagen: "",
         cupos: 0,
         inscritos: 0,
         duracion: "",
@@ -231,7 +231,7 @@ export default {
       //console.log(this.validatedInscritos);
       if (this.validatedInscritos) {
         this.cursoEditado.nombre = this.form.nombre || this.editCurso.nombre;
-        this.cursoEditado.imagen = this.form.URLimg || this.editCurso.imagen;
+        this.cursoEditado.imagen = this.form.imagen || this.editCurso.imagen;
         this.cursoEditado.cupos = this.form.cupos || this.editCurso.cupos;
         this.cursoEditado.inscritos =
           this.form.inscritos || this.editCurso.inscritos;
