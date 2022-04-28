@@ -2,11 +2,8 @@
   <div>
     <b-navbar toggleable="md" type="dark" class="p-3">
       <b-navbar-brand to="/">Cursos AlfaWeb</b-navbar-brand>
-
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
-
       <b-collapse id="nav-collapse" is-nav>
-        <!-- Right aligned nav items -->
         <b-navbar-nav tab class="margin">
           <template v-if="userState">
             <b-nav-item exact exact-active-class="active" to="/"
@@ -16,7 +13,6 @@
               >Admin</b-nav-item
             >
             <b-nav-item-dropdown right>
-              <!-- Using 'button-content' slot -->
               <template #button-content>
                 <em>{{ user.user }}</em>
               </template>

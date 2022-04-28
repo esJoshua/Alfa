@@ -1,7 +1,7 @@
 <template>
   <div>
     <b-modal
-      id="modal-add-curso"
+      id="modal-add-course"
       ref="modal"
       size="md"
       title="Datos del Curso"
@@ -9,12 +9,12 @@
       @hidden="resetModal"
       hide-footer
     >
-      <form ref="form" @submit.prevent="onSubmit">
+      <b-form ref="form" @submit.prevent="onSubmit">
         <b-form-group id="input-group-1" label-for="input-nombre">
           <b-form-input
             class="border-input shadow"
             id="input-nombre"
-            v-model.trim="form.nombre"
+            v-model="form.nombre"
             invalid-feedback="Campo requerido"
             type="text"
             placeholder="Nombre"
@@ -24,7 +24,7 @@
           ></b-form-input>
         </b-form-group>
 
-        <b-form-group id="input-group-2" label-for="input-2">
+        <b-form-group label-for="input-imagen">
           <b-form-input
             class="border-input mt-3 shadow"
             id="input-imagen"
@@ -37,10 +37,10 @@
           <small>Esta es una Url de imagen random de ejemplo</small>
         </b-form-group>
 
-        <b-form-group id="input-group-3" label-for="input-curso">
+        <b-form-group label-for="input-curso">
           <b-form-input
             class="border-input mt-3 shadow"
-            id="input-3"
+            id="input-curso"
             v-model.number="form.cupos"
             invalid-feedback="Campo requerido"
             placeholder="Cupos del curso"
@@ -50,10 +50,10 @@
           ></b-form-input>
         </b-form-group>
 
-        <b-form-group id="input-group-4" label-for="input-inscritos">
+        <b-form-group label-for="input-inscritos">
           <b-form-input
             class="border-input mt-3 shadow"
-            id="input-4"
+            id="input-inscritos"
             v-model="form.inscritos"
             :state="validatedInscritos"
             invalid-feedback="Campo requerido"
@@ -74,10 +74,10 @@
             >
           </template>
         </b-form-group>
-        <b-form-group id="input-group-5" label-for="input-duracion">
+        <b-form-group label-for="input-duracion">
           <b-form-input
             class="border-input mt-3 shadow"
-            id="input-5"
+            id="input-duracion"
             v-model="form.duracion"
             invalid-feedback="Campo requerido"
             placeholder="Duración del curso"
@@ -87,10 +87,10 @@
           ></b-form-input>
         </b-form-group>
 
-        <b-form-group id="input-group-6" label-for="input-costo">
+        <b-form-group label-for="input-costo">
           <b-form-input
             class="border-input mt-3 shadow"
-            id="input-6"
+            id="input-costo"
             v-model.number="form.costo"
             invalid-feedback="Campo requerido"
             placeholder="Costo del curso"
@@ -99,10 +99,10 @@
             required
           ></b-form-input>
         </b-form-group>
-        <b-form-group id="input-group-7" label-for="input-codigo">
+        <b-form-group label-for="input-codigo">
           <b-form-input
             class="border-input mt-3 shadow"
-            id="text-7"
+            id="input-codigo"
             v-model.trim="form.codigo"
             invalid-feedback="Campo requerido"
             placeholder="Código del curso"
@@ -111,9 +111,9 @@
             required
           ></b-form-input>
         </b-form-group>
-        <b-form-group id="input-group-8" label-for="input-descripcion">
+        <b-form-group label-for="input-descripcion">
           <b-form-textarea
-            id="text-8"
+            id="input-descripcion"
             class="mt-3 shadow"
             v-model="form.descripcion"
             invalid-feedback="Campo requerido"
@@ -125,7 +125,6 @@
           ></b-form-textarea>
         </b-form-group>
         <b-form-group
-          id="input-group-9"
           label="Estado del curso:"
           label-for="input-estado"
           class="mt-3"
@@ -135,16 +134,16 @@
               class="form-check-input"
               type="checkbox"
               role="switch"
-              id="flexSwitchCheckDefault"
+              id="switch-estado"
               v-model="form.estado"
             />
             <label
               v-if="form.estado"
               class="form-check-label"
-              for="flexSwitchCheckDefault"
+              for="switch-estado"
               >Terminado</label
             >
-            <label v-else class="form-check-label" for="flexSwitchCheckDefault"
+            <label v-else class="form-check-label" for="switch-estado"
               >Activo</label
             >
           </div>
@@ -161,7 +160,7 @@
             REGRESAR
           </b-button>
         </div>
-      </form>
+      </b-form>
     </b-modal>
   </div>
 </template>
@@ -204,10 +203,10 @@ export default {
     },
   },
   methods: {
+    ...mapActions(["createCourse"]),
     isValid() {
       return this.form.inscritos <= this.form.cupos ? true : false;
     },
-    ...mapActions(["createCurso"]),
     resetModal() {
       this.form.nombre = "";
       this.form.imagen = "";
@@ -220,7 +219,7 @@ export default {
       this.form.descripcion = "";
     },
     hideModal() {
-      this.$bvModal.hide("modal-add-curso");
+      this.$bvModal.hide("modal-add-course");
     },
     onSubmit() {
       if (this.validatedInscritos) {
@@ -239,7 +238,7 @@ export default {
           })
           .then((value) => {
             this.confirmacion = value;
-            if (this.confirmacion === true) this.createCurso(this.form);
+            if (this.confirmacion === true) this.createCourse(this.form);
             this.$router.push("/");
           });
       }

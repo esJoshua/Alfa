@@ -10,11 +10,7 @@
     <b-row>
       <b-col>
         <b-form class="input-bg" @submit.prevent="onSubmit" @reset="resetForm">
-          <b-form-group
-            id="input-group-1"
-            label="Nombre:"
-            label-for="input-nombre"
-          >
+          <b-form-group label="Nombre:" label-for="input-nombre">
             <b-form-input
               class="input-border"
               id="input-nombre"
@@ -25,7 +21,6 @@
           </b-form-group>
 
           <b-form-group
-            id="input-group-2"
             label="URL de la imagen del curso:"
             label-for="input-URLimg"
           >
@@ -37,11 +32,7 @@
             ></b-form-input>
           </b-form-group>
 
-          <b-form-group
-            id="input-group-3"
-            label="Cupos del curso:"
-            label-for="input-cupos"
-          >
+          <b-form-group label="Cupos del curso:" label-for="input-cupos">
             <b-form-input
               class="input-border"
               id="input-cupos"
@@ -52,7 +43,6 @@
           </b-form-group>
 
           <b-form-group
-            id="input-group-4"
             label="Inscritos en el curso:"
             label-for="input-inscritos"
           >
@@ -71,11 +61,7 @@
               >
             </template>
           </b-form-group>
-          <b-form-group
-            id="input-group-5"
-            label="Duración del curso:"
-            label-for="input-duracion"
-          >
+          <b-form-group label="Duración del curso:" label-for="input-duracion">
             <b-form-input
               class="input-border"
               id="input-duracion"
@@ -85,11 +71,7 @@
             ></b-form-input>
           </b-form-group>
 
-          <b-form-group
-            id="input-group-6"
-            label="Costo del curso:"
-            label-for="input-costo"
-          >
+          <b-form-group label="Costo del curso:" label-for="input-costo">
             <b-form-input
               class="input-border"
               id="input-costo"
@@ -98,11 +80,7 @@
               required
             ></b-form-input>
           </b-form-group>
-          <b-form-group
-            id="input-group-7"
-            label="Código del curso:"
-            label-for="input-codigo"
-          >
+          <b-form-group label="Código del curso:" label-for="input-codigo">
             <b-form-input
               class="input-border"
               id="text-codigo"
@@ -112,7 +90,6 @@
             ></b-form-input>
           </b-form-group>
           <b-form-group
-            id="input-group-8"
             label="Descripción del curso:"
             label-for="input-descripcion"
           >
@@ -125,11 +102,7 @@
               rows="4"
             ></b-form-textarea>
           </b-form-group>
-          <b-form-group
-            id="input-group-9"
-            label="Estado del curso:"
-            label-for="input-estado"
-          >
+          <b-form-group label="Estado del curso:" label-for="input-estado">
             <div class="form-check form-switch">
               <input
                 class="form-check-input"
@@ -156,16 +129,16 @@
             <span
               >Fecha de creación del curso:
               <small>{{
-                new Date(editCurso.fecha.seconds * 1000)
+                new Date(editCourse.fecha.seconds * 1000)
                   .toLocaleString()
                   .split(",")[0]
               }}</small>
             </span>
           </div>
-          <template v-if="editCurso.fechaAct">
+          <template v-if="editCourse.fechaUpda">
             <span
               >Última actualizacón:
-              <small>{{ new Date(editCurso.fechaAct.seconds * 1000) }}</small>
+              <small>{{ new Date(editCourse.fechaUpda.seconds * 1000) }}</small>
             </span>
           </template>
           <div class="mt-3 text-center">
@@ -200,7 +173,7 @@ export default {
         estado: null,
         descripcion: "",
       },
-      cursoEditado: {
+      editedCourse: {
         nombre: "",
         imagen: "",
         cupos: null,
@@ -215,7 +188,7 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["updateCurso"]),
+    ...mapActions(["updateCourse"]),
     resetForm() {
       this.nombre = "";
       this.URLimg = "";
@@ -230,24 +203,24 @@ export default {
     async onSubmit() {
       //console.log(this.validatedInscritos);
       if (this.validatedInscritos) {
-        this.cursoEditado.nombre = this.form.nombre || this.editCurso.nombre;
-        this.cursoEditado.imagen = this.form.imagen || this.editCurso.imagen;
-        this.cursoEditado.cupos = this.form.cupos || this.editCurso.cupos;
-        this.cursoEditado.inscritos =
-          this.form.inscritos || this.editCurso.inscritos;
-        this.cursoEditado.duracion =
-          this.form.duracion || this.editCurso.duracion;
-        this.cursoEditado.costo = this.form.costo || this.editCurso.costo;
-        this.cursoEditado.codigo = this.form.codigo || this.editCurso.codigo;
-        this.cursoEditado.descripcion =
-          this.form.descripcion || this.editCurso.descripcion;
-        this.cursoEditado.estado =
-          this.form.estado !== this.editCurso.estado &&
+        this.editedCourse.nombre = this.form.nombre || this.editCourse.nombre;
+        this.editedCourse.imagen = this.form.imagen || this.editCourse.imagen;
+        this.editedCourse.cupos = this.form.cupos || this.editCourse.cupos;
+        this.editedCourse.inscritos =
+          this.form.inscritos || this.editCourse.inscritos;
+        this.editedCourse.duracion =
+          this.form.duracion || this.editCourse.duracion;
+        this.editedCourse.costo = this.form.costo || this.editCourse.costo;
+        this.editedCourse.codigo = this.form.codigo || this.editCourse.codigo;
+        this.editedCourse.descripcion =
+          this.form.descripcion || this.editCourse.descripcion;
+        this.editedCourse.estado =
+          this.form.estado !== this.editCourse.estado &&
           this.form.estado !== null
             ? this.form.estado
-            : this.editCurso.estado;
-        this.cursoEditado.idCurso = this.editCurso.idCurso;
-        await this.updateCurso(this.cursoEditado);
+            : this.editCourse.estado;
+        this.editedCourse.idCurso = this.editCourse.idCurso;
+        await this.updateCourse(this.editedCourse);
         this.$router.push("/admin");
       }
     },
@@ -256,10 +229,10 @@ export default {
     },
   },
   computed: {
-    ...mapState(["cursos"]),
-    editCurso() {
-      return this.cursos.find(
-        (curso) => curso.codigo === this.$route.params.id
+    ...mapState(["courses"]),
+    editCourse() {
+      return this.courses.find(
+        (course) => course.codigo === this.$route.params.id
       );
     },
     validatedInscritos() {
@@ -269,14 +242,14 @@ export default {
       return null;
     },
     stateEstado() {
-      return this.form.estado !== this.editCurso.estado &&
+      return this.form.estado !== this.editCourse.estado &&
         this.form.estado !== null
         ? this.form.estado
-        : this.editCurso.estado;
+        : this.editCourse.estado;
     },
     nombre: {
       get() {
-        return this.editCurso.nombre;
+        return this.editCourse.nombre;
       },
       set(value) {
         this.form.nombre = value;
@@ -284,7 +257,7 @@ export default {
     },
     URLimg: {
       get() {
-        return this.editCurso.imagen;
+        return this.editCourse.imagen;
       },
       set(value) {
         this.form.imagen = value;
@@ -292,7 +265,7 @@ export default {
     },
     cupos: {
       get() {
-        return this.editCurso.cupos;
+        return this.editCourse.cupos;
       },
       set(value) {
         this.form.cupos = Number(value);
@@ -300,7 +273,7 @@ export default {
     },
     inscritos: {
       get() {
-        return this.editCurso.inscritos;
+        return this.editCourse.inscritos;
       },
       set(value) {
         this.form.inscritos = Number(value);
@@ -308,7 +281,7 @@ export default {
     },
     duracion: {
       get() {
-        return this.editCurso.duracion;
+        return this.editCourse.duracion;
       },
       set(value) {
         this.form.duracion = value;
@@ -316,7 +289,7 @@ export default {
     },
     costo: {
       get() {
-        return this.editCurso.costo;
+        return this.editCourse.costo;
       },
       set(value) {
         this.form.costo = Number(value);
@@ -324,7 +297,7 @@ export default {
     },
     codigo: {
       get() {
-        return this.editCurso.codigo;
+        return this.editCourse.codigo;
       },
       set(value) {
         this.form.codigo = value;
@@ -332,7 +305,7 @@ export default {
     },
     descripcion: {
       get() {
-        return this.editCurso.descripcion;
+        return this.editCourse.descripcion;
       },
       set(value) {
         this.form.descripcion = value;
@@ -340,7 +313,7 @@ export default {
     },
     estado: {
       get() {
-        return this.editCurso.estado;
+        return this.editCourse.estado;
       },
       set(value) {
         this.form.estado = Boolean(value);

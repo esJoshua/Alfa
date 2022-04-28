@@ -2,7 +2,7 @@
   <form
     class="container mt-4 text-white"
     :class="{ 'was-validated': deactivate }"
-    @submit.prevent="createUserNew"
+    @submit.prevent="createNewUser"
   >
     <div class="row justify-content-center">
       <div class="form-container">
@@ -84,7 +84,7 @@ export default {
   },
   methods: {
     ...mapActions(["createUser"]),
-    createUserNew() {
+    createNewUser() {
       this.createUser(this.dataUser);
     },
   },

@@ -8,7 +8,7 @@
     </b-row>
     <b-row>
       <b-col cols="12 g-0">
-        <button v-b-modal.modal-add-curso class="btn btn-primary mt-3 w-100">
+        <button v-b-modal.modal-add-course class="btn btn-primary mt-3 w-100">
           Agregar Curso
         </button>
       </b-col>
@@ -23,7 +23,7 @@
         </div>
       </template>
       <b-col class="mt-3 g-0">
-        <Tabla :dataCursosTabla="cursos" v-if="!loadSpinner" />
+        <Table :dataCoursesTable="courses" v-if="!loadSpinner" />
       </b-col>
     </b-row>
     <b-row>
@@ -72,12 +72,12 @@
 
 <script>
 import { mapState, mapGetters } from "vuex";
-import Tabla from "@/components/TablaComp.vue";
+import Table from "@/components/TableComp.vue";
 import Modal from "@/components/ModalComp.vue";
 export default {
-  name: "AdministracionView",
+  name: "AdminView",
   computed: {
-    ...mapState(["user", "cursos", "loadSpinner"]),
+    ...mapState(["user", "courses", "loadSpinner"]),
     ...mapGetters([
       "totalCursos",
       "totalCupos",
@@ -88,7 +88,7 @@ export default {
     ]),
   },
   components: {
-    Tabla,
+    Table,
     Modal,
   },
 };

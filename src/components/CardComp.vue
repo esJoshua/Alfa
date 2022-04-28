@@ -1,8 +1,8 @@
 <template>
   <b-row class="justify-content-evenly">
     <b-col
-      v-for="curso of dataCursosCard"
-      :key="curso.codigo"
+      v-for="course of dataCoursesCard"
+      :key="course.codigo"
       sm="6"
       md="4"
       class="m-3 g-0"
@@ -11,13 +11,12 @@
       <b-card style="min-height: 38rem">
         <div
           class="bgimg"
-          :style="`background-image: url(${curso.imagen})`"
-          :img-alt="curso.nombre"
-          @error="imgError"
+          :style="`background-image: url(${course.imagen})`"
+          :img-alt="course.nombre"
         ></div>
         <b-card-body>
           <b-card-title style="height: 50px"
-            ><strong>{{ curso.nombre }}</strong></b-card-title
+            ><strong>{{ course.nombre }}</strong></b-card-title
           >
           <b-card-sub-title class="m-1">Información</b-card-sub-title>
           <b-card-text>
@@ -25,22 +24,22 @@
               <b-list-group-item
                 >Costo:
                 <em
-                  >${{ curso.costo.toLocaleString("DE-de") }}</em
+                  >${{ course.costo.toLocaleString("DE-de") }}</em
                 ></b-list-group-item
               >
               <b-list-group-item
-                >Duración: <em>{{ curso.duracion }}</em></b-list-group-item
+                >Duración: <em>{{ course.duracion }}</em></b-list-group-item
               >
               <b-list-group-item
-                >Cupos: <em>{{ curso.cupos }}</em></b-list-group-item
+                >Cupos: <em>{{ course.cupos }}</em></b-list-group-item
               >
               <b-list-group-item
                 >Completado:
-                <em>{{ curso.estado ? "Si" : "No" }}</em></b-list-group-item
+                <em>{{ course.estado ? "Si" : "No" }}</em></b-list-group-item
               >
               <b-list-group-item
                 >Descripción:
-                <em>{{ curso.descripcion }}</em></b-list-group-item
+                <em>{{ course.descripcion }}</em></b-list-group-item
               >
             </b-list-group>
           </b-card-text>
@@ -54,19 +53,13 @@
 export default {
   name: "CardComp",
   props: {
-    dataCursosCard: {
+    dataCoursesCard: {
       type: Array,
       default: () => [],
     },
   },
-  methods: {
-    imgError() {
-      console.log("Image failed to load");
-    },
-  },
 };
 </script>
-
 <style>
 .bgimg {
   height: 13rem;

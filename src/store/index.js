@@ -24,15 +24,15 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     user: null,
-    cursos: [],
+    courses: [],
     loadSpinner: false,
   },
   mutations: {
     SET_USER(state, payload) {
       state.user = payload;
     },
-    SET_DATA_CURSOS(state, payload) {
-      state.cursos = payload;
+    SET_DATA_COURSES(state, payload) {
+      state.courses = payload;
     },
     SET_LOAD_SPINNER(state, payload) {
       state.loadSpinner = payload;
@@ -47,41 +47,41 @@ export default new Vuex.Store({
       }
     },
     totalCursos(state) {
-      return state.cursos.length;
+      return state.courses.length;
     },
     totalCupos(state) {
       let totalCupos = 0;
-      state.cursos.forEach((cupo) => {
+      state.courses.forEach((cupo) => {
         //console.log(cupo.cupos);
         totalCupos = totalCupos + Number(cupo.cupos);
       });
       return totalCupos;
     },
     totalInscritos(state) {
-      return state.cursos.reduce((accumulator, curso) => {
-        accumulator = accumulator + Number(curso.inscritos);
-        //return state.cursos.reduce((accumulator, curso, i) => {
+      return state.courses.reduce((accumulator, course) => {
+        accumulator = accumulator + Number(course.inscritos);
+        //return state.courses.reduce((accumulator, course, i) => {
         //console.log("iteración", 1 + i++, accumulator);
         return accumulator;
       }, 0);
     },
     cuposRestantes(state) {
-      return state.cursos.reduce((accumulator, curso) => {
-        accumulator = accumulator + Number(curso.cupos - curso.inscritos);
-        //return state.cursos.reduce((accumulator, curso, i) => {
-        //console.log("iteración", 1 + i++, curso.cupos - curso.inscritos);
+      return state.courses.reduce((accumulator, course) => {
+        accumulator = accumulator + Number(course.cupos - course.inscritos);
+        //return state.courses.reduce((accumulator, course, i) => {
+        //console.log("iteración", 1 + i++, course.cupos - course.inscritos);
         return accumulator;
       }, 0);
     },
     cursosTerminados(state) {
-      return state.cursos.reduce((accumulator, item) => {
+      return state.courses.reduce((accumulator, item) => {
         accumulator = accumulator + item.estado;
         //console.log(+item.estado);
         return accumulator;
       }, 0);
     },
     cursosActivos(state) {
-      return state.cursos.reduce((accumulator, item) => {
+      return state.courses.reduce((accumulator, item) => {
         accumulator = accumulator + !item.estado;
         //console.log(+!item.estado);
         return accumulator;
@@ -180,22 +180,22 @@ export default new Vuex.Store({
       commit("SET_USER", payload);
     },
 
-    async getCollectionCursos({ commit }) {
+    async getCollectionCourses({ commit }) {
       commit("SET_LOAD_SPINNER", true);
       setTimeout(() => {
         try {
           const q = query(collection(db, "cursos"));
           onSnapshot(q, (querySnapshot) => {
-            const cursos = [];
+            const coursesOnSnap = [];
             querySnapshot.forEach((doc) => {
-              const curso = {
+              const course = {
                 ...doc.data(),
                 idCurso: doc.id,
               };
-              cursos.push(curso);
+              coursesOnSnap.push(course);
             });
-            console.log(cursos);
-            commit("SET_DATA_CURSOS", cursos);
+            console.log(coursesOnSnap);
+            commit("SET_DATA_COURSES", coursesOnSnap);
             commit("SET_LOAD_SPINNER", false);
           });
         } catch (error) {
@@ -204,12 +204,12 @@ export default new Vuex.Store({
       }, 3000);
     },
 
-    async updateCurso(_, payload) {
+    async updateCourse(_, payload) {
       try {
         const docRef = doc(db, "cursos", payload.idCurso);
         await updateDoc(docRef, {
           ...payload,
-          fechaAct: serverTimestamp(),
+          fechaUpda: serverTimestamp(),
         });
         console.log("Ha sido Actualizado el curso con ID: ", docRef.id);
         alert("Ha sido Actualizado el curso con codigo: " + payload.codigo);
@@ -217,7 +217,7 @@ export default new Vuex.Store({
         console.error(error);
       }
     },
-    async createCurso(_, payload) {
+    async createCourse(_, payload) {
       try {
         const docRef = await addDoc(collection(db, "cursos"), {
           nombre: payload.nombre,
@@ -236,7 +236,7 @@ export default new Vuex.Store({
         console.error(error);
       }
     },
-    async deleteCurso(_, payload) {
+    async deleteCourse(_, payload) {
       console.log(payload);
       try {
         await deleteDoc(doc(db, "cursos", payload.idCurso));

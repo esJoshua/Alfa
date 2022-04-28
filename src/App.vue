@@ -15,10 +15,10 @@ import Footer from "@/components/FooterComp.vue";
 export default {
   name: "App",
   created() {
-    this.getCollectionCursos();
+    this.getCollectionCourses();
   },
   methods: {
-    ...mapActions(["getCollectionCursos"]),
+    ...mapActions(["getCollectionCourses"]),
   },
 
   components: {
