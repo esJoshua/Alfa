@@ -206,7 +206,7 @@ export default {
         return this.form.estado ? 0 : this.form.inscritos;
       },
       set(value) {
-        this.form.inscritos = this.form.estado ? 0 : value;
+        this.form.inscritos = value;
       },
     },
   },

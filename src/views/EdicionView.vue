@@ -235,6 +235,12 @@ export default {
       );
     },
     validatedInscritos() {
+      console.log("this.inscritos", this.inscritos);
+      console.log("this.form.inscritos", this.form.inscritos);
+      console.log("this.editedCourse.inscritos", this.editedCourse.inscritos);
+      console.log("this.estado", this.estado);
+      console.log("this.form.estado", this.form.estado);
+      console.log(this.editedCourse.estado);
       if (this.inscritos >= 0) {
         return this.isValid(this.inscritos);
       }
@@ -278,7 +284,15 @@ export default {
         return this.form.estado ? 0 : this.editCourse.inscritos;
       },
       set(value) {
-        this.form.inscritos = this.form.estado ? (value = 0) : Number(value);
+        this.form.inscritos = value;
+      },
+    },
+    estado: {
+      get() {
+        return this.inscritos === 0 ? true : false;
+      },
+      set(value) {
+        this.form.estado = value;
       },
     },
     duracion: {
@@ -311,15 +325,6 @@ export default {
       },
       set(value) {
         this.form.descripcion = value;
-      },
-    },
-    estado: {
-      get() {
-        return this.editCourse.inscritos === 0 ? true : false;
-        /* return this.editCourse.estado; */
-      },
-      set(value) {
-        this.form.estado = this.form.inscritos !== 0 ? !value : value;
       },
     },
   },

@@ -52,7 +52,6 @@ export default new Vuex.Store({
     totalCupos(state) {
       let totalCupos = 0;
       state.courses.forEach((cupo) => {
-        //console.log(cupo.cupos);
         totalCupos = totalCupos + Number(cupo.cupos);
       });
       return totalCupos;
@@ -76,14 +75,12 @@ export default new Vuex.Store({
     cursosTerminados(state) {
       return state.courses.reduce((accumulator, item) => {
         accumulator = accumulator + item.estado;
-        //console.log(+item.estado);
         return accumulator;
       }, 0);
     },
     cursosActivos(state) {
       return state.courses.reduce((accumulator, item) => {
         accumulator = accumulator + !item.estado;
-        //console.log(+!item.estado);
         return accumulator;
       }, 0);
     },
