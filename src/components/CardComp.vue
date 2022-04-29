@@ -70,7 +70,7 @@ export default {
 .card:hover {
   border-color: #4ff149;
   box-shadow: 20px 20px 20px 10px #1adb6ac5, -20px -20px 20px 10px #1adb6ac5;
-  transform: scale(1.02);
+  transform: scale(1.05);
   transition: all 0.2s linear;
   -webkit-transform: scale();
   -moz-transform: scale();
