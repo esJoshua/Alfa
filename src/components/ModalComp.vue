@@ -54,7 +54,7 @@
           <b-form-input
             class="border-input mt-3 shadow"
             id="input-inscritos"
-            v-model="form.inscritos"
+            v-model="inscritos"
             :state="validatedInscritos"
             invalid-feedback="Campo requerido"
             placeholder="Número de inscritos en el curso"
@@ -201,6 +201,14 @@ export default {
         this.form.imagen = value;
       },
     },
+    inscritos: {
+      get() {
+        return this.form.estado ? 0 : this.form.inscritos;
+      },
+      set(value) {
+        this.form.inscritos = this.form.estado ? 0 : value;
+      },
+    },
   },
   methods: {
     ...mapActions(["createCourse"]),
@@ -217,6 +225,7 @@ export default {
       this.form.codigo = "";
       this.form.estado = false;
       this.form.descripcion = "";
+      this.inscritos = null;
     },
     hideModal() {
       this.$bvModal.hide("modal-add-course");
@@ -238,7 +247,11 @@ export default {
           })
           .then((value) => {
             this.confirmacion = value;
-            if (this.confirmacion === true) this.createCourse(this.form);
+            if (this.confirmacion === true)
+              this.createCourse({
+                ...this.form,
+                inscritos: this.inscritos,
+              });
             this.$router.push("/");
           });
       }

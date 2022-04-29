@@ -206,8 +206,7 @@ export default {
         this.editedCourse.nombre = this.form.nombre || this.editCourse.nombre;
         this.editedCourse.imagen = this.form.imagen || this.editCourse.imagen;
         this.editedCourse.cupos = this.form.cupos || this.editCourse.cupos;
-        this.editedCourse.inscritos =
-          this.form.inscritos || this.editCourse.inscritos;
+        this.editedCourse.inscritos = this.form.inscritos || this.inscritos;
         this.editedCourse.duracion =
           this.form.duracion || this.editCourse.duracion;
         this.editedCourse.costo = this.form.costo || this.editCourse.costo;
@@ -242,6 +241,9 @@ export default {
       return null;
     },
     stateEstado() {
+      console.log(this.form.estado);
+      console.log(this.estado);
+      console.log(this.editedCourse.estado);
       return this.form.estado !== this.editCourse.estado &&
         this.form.estado !== null
         ? this.form.estado
@@ -273,10 +275,10 @@ export default {
     },
     inscritos: {
       get() {
-        return this.editCourse.inscritos;
+        return this.form.estado ? 0 : this.editCourse.inscritos;
       },
       set(value) {
-        this.form.inscritos = Number(value);
+        this.form.inscritos = this.form.estado ? (value = 0) : Number(value);
       },
     },
     duracion: {
@@ -313,10 +315,11 @@ export default {
     },
     estado: {
       get() {
-        return this.editCourse.estado;
+        return this.editCourse.inscritos === 0 ? true : false;
+        /* return this.editCourse.estado; */
       },
       set(value) {
-        this.form.estado = Boolean(value);
+        this.form.estado = this.form.inscritos !== 0 ? !value : value;
       },
     },
   },
