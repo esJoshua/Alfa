@@ -86,6 +86,7 @@ export default new Vuex.Store({
     },
   },
   actions: {
+    //////////////* USER MANAGEMENT  *////////////////////
     async createUser({ commit }, payload) {
       const user = payload.user;
       const password = payload.password;
@@ -177,6 +178,7 @@ export default new Vuex.Store({
       commit("SET_USER", payload);
     },
 
+    //////////////* COURSE MANAGEMENT  *////////////////////
     async getCollectionCourses({ commit }) {
       commit("SET_LOAD_SPINNER", true);
       setTimeout(() => {
