@@ -37,6 +37,9 @@ export default {
   min-height: 100vh;
   position: relative;
   background-image: url("https://wallpaperboat.com/wp-content/uploads/2020/04/matrix-wallpaper-download-13.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
 }
 .views-container {
   padding-bottom: 8rem;
