@@ -18,7 +18,7 @@ export default {
     this.getCollectionCourses();
   },
   methods: {
-    ...mapActions(["getCollectionCourses"]),
+    ...mapActions("courses", ["getCollectionCourses"]),
   },
 
   components: {

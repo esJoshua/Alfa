@@ -16,7 +16,6 @@
               <template #button-content>
                 <em>{{ user.user }}</em>
               </template>
-              <b-dropdown-item>Perfil</b-dropdown-item>
               <b-dropdown-item @click="logout">Log Out</b-dropdown-item>
             </b-nav-item-dropdown>
           </template>
@@ -40,14 +39,14 @@ import { mapActions, mapState, mapGetters } from "vuex";
 export default {
   name: "NavbarComp",
   methods: {
-    ...mapActions(["logout"]),
+    ...mapActions("auth", ["logout"]),
     async logoutBtn() {
       await this.logout();
     },
   },
   computed: {
-    ...mapState(["user"]),
-    ...mapGetters(["userState"]),
+    ...mapState("auth", ["user"]),
+    ...mapGetters("auth", ["userState"]),
   },
 };
 </script>

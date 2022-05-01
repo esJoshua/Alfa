@@ -83,7 +83,7 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["createUser"]),
+    ...mapActions("user", ["createUser"]),
     createNewUser() {
       this.createUser(this.dataUser);
     },

@@ -53,7 +53,7 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["loginWithFirebase"]),
+    ...mapActions("auth", ["loginWithFirebase"]),
     async login() {
       await this.loginWithFirebase(this.dataUser);
     },

@@ -25,7 +25,9 @@ import Card from "@/components/CardComp.vue";
 export default {
   name: "HomeView",
   computed: {
-    ...mapState(["user", "courses", "loadSpinner"]),
+    ...mapState("auth", ["user"]),
+    ...mapState("courses", ["courses", "loadSpinner"]),
+    ...mapState("spinner", ["loadSpinner"]),
   },
   components: {
     Card,

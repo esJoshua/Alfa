@@ -20,10 +20,9 @@ onAuthStateChanged(auth, (user) => {
       user: user.email,
       uid: user.uid,
     };
-    //console.log(user);
-    store.dispatch("authState", userDetected);
+    store.dispatch("auth/authState", userDetected);
   } else {
-    store.dispatch("authState", user);
+    store.dispatch("auth/authState", user);
   }
   new Vue({
     router,

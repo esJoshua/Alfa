@@ -77,8 +77,10 @@ import Modal from "@/components/ModalComp.vue";
 export default {
   name: "AdminView",
   computed: {
-    ...mapState(["user", "courses", "loadSpinner"]),
-    ...mapGetters([
+    ...mapState("auth", ["user"]),
+    ...mapState("courses", ["courses", "loadSpinner"]),
+    ...mapState("spinner", ["loadSpinner"]),
+    ...mapGetters("courses", [
       "totalCursos",
       "totalCupos",
       "totalInscritos",

@@ -74,10 +74,10 @@ export default {
     },
   },
   methods: {
-    ...mapActions(["deleteCourse"]),
+    ...mapActions("courses", ["deleteCourse"]),
     deleteCourseBtn(course) {
       this.$bvModal
-        .msgBoxConfirm("Confirme la eliminación del curso.", {
+        .msgBoxConfirm("Confirme la eliminación del curso " + course.nombre, {
           title: "!! Advertencia !!",
           okVariant: "danger",
           okTitle: "Sí, borrar",
@@ -90,7 +90,6 @@ export default {
         })
         .then((value) => {
           this.confirmation = value;
-          //console.log(this.confirmation);
           if (this.confirmation === true) this.deleteCourse(course);
         });
     },

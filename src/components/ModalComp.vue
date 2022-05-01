@@ -211,7 +211,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions(["createCourse"]),
+    ...mapActions("courses", ["createCourse"]),
     isValid() {
       return this.form.inscritos <= this.form.cupos ? true : false;
     },

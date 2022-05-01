@@ -188,7 +188,7 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["updateCourse"]),
+    ...mapActions("courses", ["updateCourse"]),
     resetForm() {
       this.nombre = "";
       this.URLimg = "";
@@ -201,7 +201,6 @@ export default {
       this.estado = false;
     },
     async onSubmit() {
-      //console.log(this.validatedInscritos);
       if (this.validatedInscritos) {
         this.editedCourse.nombre = this.form.nombre || this.editCourse.nombre;
         this.editedCourse.imagen = this.form.imagen || this.editCourse.imagen;
@@ -228,28 +227,19 @@ export default {
     },
   },
   computed: {
-    ...mapState(["courses"]),
+    ...mapState("courses", ["courses"]),
     editCourse() {
       return this.courses.find(
         (course) => course.codigo === this.$route.params.id
       );
     },
     validatedInscritos() {
-      console.log("this.inscritos", this.inscritos);
-      console.log("this.form.inscritos", this.form.inscritos);
-      console.log("this.editedCourse.inscritos", this.editedCourse.inscritos);
-      console.log("this.estado", this.estado);
-      console.log("this.form.estado", this.form.estado);
-      console.log(this.editedCourse.estado);
       if (this.inscritos >= 0) {
         return this.isValid(this.inscritos);
       }
       return null;
     },
     stateEstado() {
-      console.log(this.form.estado);
-      console.log(this.estado);
-      console.log(this.editedCourse.estado);
       return this.form.estado !== this.editCourse.estado &&
         this.form.estado !== null
         ? this.form.estado
