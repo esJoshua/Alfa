@@ -89,6 +89,7 @@ export default {
     },
   },
   computed: {
+    //////////////* BUTTON VALIDATION  *////////////////////
     deactivate() {
       console.log(this.dataUser.password, this.password2);
       return (
