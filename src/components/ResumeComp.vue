@@ -16,7 +16,7 @@
       </p>
       <p
         class="resume-border rounded p-2"
-        :style="'border-color: red; color:red'"
+        :style="'border-color: green; color:green'"
       >
         Cantidad total de cupos restantes: {{ cuposRestantes }} alumnos
       </p>

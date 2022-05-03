@@ -9,58 +9,72 @@
     hide-footer
   >
     <b-form ref="form" @submit.prevent="onSubmit">
-      <b-form-group id="input-group-1" label-for="input-nombre">
-        <b-form-input
-          class="border-input shadow"
+      <div id="input-group-1" class="form-floating">
+        <input
+          class="form-control border-input shadow"
           id="input-nombre"
           v-model="form.nombre"
           invalid-feedback="Campo requerido"
           type="text"
-          placeholder="Nombre"
+          placeholder="Nombre del curso"
           title="Nombre del curso"
           maxlength="30"
           required
-        ></b-form-input>
-      </b-form-group>
+        />
+        <label for="input-nombre">Nombre del curso</label>
+      </div>
 
-      <b-form-group label-for="input-imagen">
-        <b-form-input
-          class="border-input mt-3 shadow"
+      <div id="input-group-2" class="form-floating mt-2">
+        <input
+          class="form-control border-input shadow"
           id="input-imagen"
           v-model="defaultImg"
           invalid-feedback="Campo requerido"
+          type="text"
           placeholder="URL de la imagen del curso"
           title="URL de la imagen del curso"
+          maxlength="30"
           required
-        ></b-form-input>
-        <small>Esta Url asigna una imagen random como ejemplo</small>
-      </b-form-group>
+        />
+        <label for="input-imagen"
+          >URL del logo (URL con logo aleatorio por defecto)</label
+        >
+      </div>
 
-      <b-form-group label-for="input-curso">
-        <b-form-input
-          class="border-input mt-3 shadow"
+      <div id="input-group-3" class="form-floating mt-2">
+        <input
+          class="form-control border-input shadow"
           id="input-curso"
           v-model.number="form.cupos"
           invalid-feedback="Campo requerido"
-          placeholder="Cupos del curso"
-          title="Cupos del curso"
           type="number"
+          placeholder="Número de cupos del curso"
+          title="Número de cupos del curso"
           required
-        ></b-form-input>
-      </b-form-group>
+        />
+        <label for="input-curso">Número de cupos</label>
+      </div>
 
-      <b-form-group label-for="input-inscritos">
-        <b-form-input
-          class="border-input mt-3 shadow"
+      <div id="input-group-3" class="form-floating mt-2">
+        <input
+          class="form-control border-input shadow"
+          :class="{
+            'is-invalid':
+              !validatedInscritos &&
+              inscritos !== null &&
+              form.inscritos !== '' &&
+              form.inscritos !== 0,
+          }"
           id="input-inscritos"
-          v-model="inscritos"
-          :state="validatedInscritos"
-          invalid-feedback="Campo requerido"
-          placeholder="Número de inscritos en el curso"
-          title="Inscritos en el curso"
+          v-model.number="inscritos"
+          invalid-feedback="Campo
+        requerido"
           type="number"
+          placeholder="Número de inscritos en el curso"
+          title="Número de inscritos en el curso"
           required
-        ></b-form-input>
+        />
+        <label for="input-inscritos">Número de inscritos</label>
         <template>
           <small
             v-if="
@@ -72,57 +86,63 @@
             disponibles</small
           >
         </template>
-      </b-form-group>
-      <b-form-group label-for="input-duracion">
-        <b-form-input
-          class="border-input mt-3 shadow"
+      </div>
+      <div id="input-group-4" class="form-floating mt-2">
+        <input
+          class="form-control border-input shadow"
           id="input-duracion"
           v-model="form.duracion"
           invalid-feedback="Campo requerido"
+          type="text"
           placeholder="Duración del curso"
           title="Duración del curso"
-          type="text"
           required
-        ></b-form-input>
-      </b-form-group>
-
-      <b-form-group label-for="input-costo">
-        <b-form-input
-          class="border-input mt-3 shadow"
+        />
+        <label for="input-duracion">Duración</label>
+      </div>
+      <div id="input-group-5" class="form-floating mt-2">
+        <input
+          class="form-control border-input shadow"
           id="input-costo"
           v-model.number="form.costo"
           invalid-feedback="Campo requerido"
-          placeholder="Costo del curso"
-          title="Costo del curso"
           type="number"
+          placeholder="costo del curso"
+          title="costo del curso"
           required
-        ></b-form-input>
-      </b-form-group>
-      <b-form-group label-for="input-codigo">
-        <b-form-input
-          class="border-input mt-3 shadow"
+        />
+        <label for="input-costo">Costo</label>
+      </div>
+
+      <div id="input-group-5" class="form-floating mt-2">
+        <input
+          class="form-control border-input shadow"
           id="input-codigo"
-          v-model.trim="form.codigo"
+          v-model="form.codigo"
           invalid-feedback="Campo requerido"
+          type="text"
           placeholder="Código del curso"
           title="Código del curso"
-          type="text"
           required
-        ></b-form-input>
-      </b-form-group>
-      <b-form-group label-for="input-descripcion">
-        <b-form-textarea
+        />
+        <label for="input-codigo">Código</label>
+      </div>
+
+      <div id="input-group-6" class="form-floating mt-2">
+        <textarea
+          class="form-control border-input shadow"
           id="input-descripcion"
-          class="mt-3 shadow"
           v-model="form.descripcion"
           invalid-feedback="Campo requerido"
-          placeholder="Descripción del curso"
-          title="Descripción del curso"
           type="text"
+          placeholder="Leave a comment here"
+          title="Descripción del curso"
+          style="height: 100px"
           required
-          rows="4"
-        ></b-form-textarea>
-      </b-form-group>
+        ></textarea>
+        <label for="input-descripcion">Descripción</label>
+      </div>
+
       <b-form-group
         label="Estado del curso:"
         label-for="input-estado"
@@ -178,7 +198,7 @@ export default {
         descripcion: "",
         imgUrlDefault: "http://placeimg.com/640/480/tech",
       },
-      confirmacion: "",
+      confirmation: "",
     };
   },
   computed: {
@@ -241,8 +261,8 @@ export default {
             headerTextVariant: "light",
           })
           .then((value) => {
-            this.confirmacion = value;
-            if (this.confirmacion)
+            this.confirmation = value;
+            if (this.confirmation)
               this.createCourse({
                 ...this.form,
                 inscritos: this.inscritos,

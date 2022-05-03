@@ -12,7 +12,6 @@
         <b-form class="input-bg" @submit.prevent="onSubmit" @reset="resetForm">
           <b-form-group label="Nombre:" label-for="input-nombre">
             <b-form-input
-              class="input-border"
               id="input-nombre"
               v-model="nombre"
               type="text"
@@ -25,7 +24,6 @@
             label-for="input-URLimg"
           >
             <b-form-input
-              class="input-border"
               id="input-URLimg"
               v-model="URLimg"
               required
@@ -34,7 +32,6 @@
 
           <b-form-group label="Cupos del curso:" label-for="input-cupos">
             <b-form-input
-              class="input-border"
               id="input-cupos"
               v-model="cupos"
               type="number"
@@ -47,10 +44,10 @@
             label-for="input-inscritos"
           >
             <b-form-input
-              class="input-border"
               id="input-inscritos"
               v-model="inscritos"
               :state="validatedInscritos"
+              :disabled="deactivate"
               type="number"
               required
             ></b-form-input>
@@ -63,7 +60,6 @@
           </b-form-group>
           <b-form-group label="Duración del curso:" label-for="input-duracion">
             <b-form-input
-              class="input-border"
               id="input-duracion"
               v-model="duracion"
               type="text"
@@ -73,7 +69,6 @@
 
           <b-form-group label="Costo del curso:" label-for="input-costo">
             <b-form-input
-              class="input-border"
               id="input-costo"
               v-model="costo"
               type="number"
@@ -82,8 +77,7 @@
           </b-form-group>
           <b-form-group label="Código del curso:" label-for="input-codigo">
             <b-form-input
-              class="input-border"
-              id="text-codigo"
+              id="input-codigo"
               v-model="codigo"
               type="text"
               disabled
@@ -174,7 +168,7 @@ export default {
         duracion: "",
         costo: null,
         codigo: "",
-        estado: null,
+        estado: false,
         descripcion: "",
       },
       editedCourse: {
@@ -238,14 +232,18 @@ export default {
       );
     },
     validatedInscritos() {
-      if (this.inscritos >= 0) {
-        return this.isValid(this.inscritos);
+      if (this.form.inscritos !== null) {
+        return this.isValid(this.form.inscritos);
       }
       return null;
     },
     stateEstado() {
-      return this.form.estado !== this.editCourse.estado &&
-        this.form.estado !== null
+      return this.form.estado !== this.editCourse.estado
+        ? this.form.estado
+        : this.editCourse.estado;
+    },
+    deactivate() {
+      return this.form.estado !== this.editCourse.estado
         ? this.form.estado
         : this.editCourse.estado;
     },
@@ -278,7 +276,7 @@ export default {
         return this.form.estado ? 0 : this.editCourse.inscritos;
       },
       set(value) {
-        this.form.inscritos = value;
+        this.form.inscritos = Number(value);
       },
     },
     estado: {
@@ -328,8 +326,5 @@ export default {
 <style>
 .input-bg {
   background-color: rgba(5, 5, 5, 0.9);
-}
-.input-border {
-  border-block-start-style: none;
 }
 </style>

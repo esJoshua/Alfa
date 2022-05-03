@@ -92,7 +92,6 @@ export default {
   computed: {
     //////////////* BUTTON VALIDATION  *////////////////////
     deactivate() {
-      console.log(this.confirmation);
       return (
         this.dataUser.password === this.password2 &&
         this.dataUser.password.trim() !== "" &&
