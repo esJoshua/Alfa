@@ -46,7 +46,7 @@
             class="form-check-input me-2"
             type="checkbox"
             id="checkbox"
-            value=""
+            v-model="confirmation"
             required
           />
           <label class="form-check-label" for="checkbox">
@@ -80,10 +80,11 @@ export default {
         password: "",
       },
       password2: "",
+      confirmation: "",
     };
   },
   methods: {
-    ...mapActions("user", ["createUser"]),
+    ...mapActions("auth", ["createUser"]),
     createNewUser() {
       this.createUser(this.dataUser);
     },
@@ -91,11 +92,12 @@ export default {
   computed: {
     //////////////* BUTTON VALIDATION  *////////////////////
     deactivate() {
-      console.log(this.dataUser.password, this.password2);
+      console.log(this.confirmation);
       return (
         this.dataUser.password === this.password2 &&
         this.dataUser.password.trim() !== "" &&
-        this.dataUser.password.length > 5
+        this.dataUser.password.length > 5 &&
+        this.confirmation
       );
     },
   },

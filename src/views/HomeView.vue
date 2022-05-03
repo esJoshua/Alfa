@@ -15,7 +15,7 @@
         <div style="color: #4ff149">Cargando contenido...</div>
       </div>
     </template>
-    <Card class="mt-3" :dataCoursesCard="courses" v-if="!loadSpinner" />
+    <Card :dataCoursesCard="courses" v-if="!loadSpinner" />
   </b-container>
 </template>
 

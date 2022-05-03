@@ -1,5 +1,5 @@
 <template>
-  <div class="container mt-4 text-white">
+  <b-form @submit.prevent="login" class="container mt-4 text-white">
     <div class="row justify-content-center">
       <div class="form-container">
         <div>
@@ -25,7 +25,7 @@
           />
         </div>
         <div class="text-center mt-3">
-          <button @click="login" class="btn btn-primary mx-2">Ingresar</button>
+          <button type="submit" class="btn btn-primary mx-2">Ingresar</button>
         </div>
         <div class="text-center mt-2">
           <p>
@@ -37,7 +37,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </b-form>
 </template>
 
 <script>

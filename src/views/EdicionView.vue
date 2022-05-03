@@ -86,7 +86,7 @@
               id="text-codigo"
               v-model="codigo"
               type="text"
-              required
+              disabled
             ></b-form-input>
           </b-form-group>
           <b-form-group
@@ -102,8 +102,12 @@
               rows="4"
             ></b-form-textarea>
           </b-form-group>
-          <b-form-group label="Estado del curso:" label-for="input-estado">
-            <div class="form-check form-switch">
+          <b-form-group
+            class="d-flex"
+            label="Estado del curso:"
+            label-for="input-estado"
+          >
+            <span class="form-check form-switch">
               <input
                 class="form-check-input"
                 type="checkbox"
@@ -123,7 +127,7 @@
                 for="flexSwitchCheckDefault"
                 >Activo</label
               >
-            </div>
+            </span>
           </b-form-group>
           <div>
             <span

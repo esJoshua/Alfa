@@ -1,5 +1,5 @@
 <template>
-  <b-row class="justify-content-evenly">
+  <b-row class="justify-content-evenly mt-3">
     <b-col
       v-for="course of dataCoursesCard"
       :key="course.codigo"
